@@ -18,7 +18,7 @@ By default, some properties are set that are optimal for developing and publishi
 
 ## MSBuild Targets
 
-**OR_GREATER preprocessor symbols target**
+### OR_GREATER preprocessor symbols Target
 
 This target generates the Define Constants needed to support code for multiple Revit versions. 
 `OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions
@@ -41,7 +41,7 @@ Usage:
 
 To disable it, set `<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>`.
 
-**Implicit global usings target**
+### Implicit global usings Target
 
 This target adds implicit global Usings depending on the installed Nuget packages. Helps to reduce the usings frequently encountered in a project
 
@@ -53,9 +53,9 @@ This target adds implicit global Usings depending on the installed Nuget package
 
 To disable it, set `<ImplicitUsings>false</ImplicitUsings>`.
 
-**Publish target**
+### Publish Target
 
 This target copies addin files to the `AppData\Autodesk\Revit\Addins folder` after project building.
-Clearing the solution will delete the published files.
+Cleaning the solution will delete the published files.
 
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`.
