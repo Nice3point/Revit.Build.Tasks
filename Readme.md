@@ -6,6 +6,16 @@
 
 This repository contains the MSBuild tasks and targets required for publishing Revit applications.
 
+## Installation
+
+You can install Extensions as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
+
+```text
+<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
+```
+
+Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
+
 ## MSBuild Properties
 
 By default, some properties are set that are optimal for developing and publishing the plugin for multiple Revit versions.
@@ -23,11 +33,11 @@ By default, some properties are set that are optimal for developing and publishi
 This target generates the Define Constants needed to support code for multiple Revit versions. 
 `OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions
 
-| Project configuration | Solution configurations         | Define constants                                                            |
-|-----------------------|:--------------------------------|-----------------------------------------------------------------------------|
-| Debug R20             | Debug R20, Debug R21, Debug R22 | REVIT2020, REVIT2020_OR_GREATER                                             |
-| Debug R21             | Debug R20, Debug R21, Debug R22 | REVIT2021, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER                       |
-| Debug R22             | Debug R20, Debug R21, Debug R22 | REVIT2022, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER, REVIT2022_OR_GREATER |
+| Project configuration | Solution configurations           | Generated Define constants                                                  |
+|-----------------------|:----------------------------------|-----------------------------------------------------------------------------|
+| Debug R20             | Debug R20, Release R21, Revit2022 | REVIT2020, REVIT2020_OR_GREATER                                             |
+| Release R21           | Debug R20, Release R21, Revit2022 | REVIT2021, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER                       |
+| Revit2022             | Debug R20, Release R21, Revit2022 | REVIT2022, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER, REVIT2022_OR_GREATER |
 
 Usage:
 
