@@ -1,0 +1,21 @@
+<!-- This file contains a list of the Revit versions that are supported by this SDK -->
+
+<Project>
+
+    <PropertyGroup>
+        <BuildTasksDirectoryRoot>$(MSBuildThisFileDirectory)..\tasks\</BuildTasksDirectoryRoot>
+        <BuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">net8.0</BuildTasksTFM>
+        <BuildTasksTFM Condition=" '$(MicrosoftNETBuildTasksTFM)' == ''">net48</BuildTasksTFM>
+        <BuildTasksDirectory>$(BuildTasksDirectoryRoot)$(BuildTasksTFM)\</BuildTasksDirectory>
+        <BuildTasksAssembly>$(BuildTasksDirectory)Nice3point.Revit.Build.Tasks.dll</BuildTasksAssembly>
+    </PropertyGroup>
+
+    <UsingTask TaskName="$(MSBuildThisFileName).AddImplicitUsings" AssemblyFile="$(BuildTasksAssembly)"/>
+    <UsingTask TaskName="$(MSBuildThisFileName).GenerateRevitCompatibleDefineConstants" AssemblyFile="$(BuildTasksAssembly)"/>
+
+    <PropertyGroup>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+</Project>

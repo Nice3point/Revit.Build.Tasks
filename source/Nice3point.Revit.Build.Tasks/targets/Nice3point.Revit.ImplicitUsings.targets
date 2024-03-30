@@ -1,0 +1,33 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+    ============================================================
+                            Implicit usings
+    
+    Define imlicit global usings
+    ============================================================
+    -->
+    
+    <ItemGroup>
+        <AdditionalUsing Include="Autodesk.Revit.DB"/>
+        <AdditionalUsing Include="Nice3point.Revit.Extensions" RequiredPackage="Nice3point.Revit.Extensions"/>
+        <AdditionalUsing Include="JetBrains.Annotations" RequiredPackage="Nice3point.Revit.Extensions"/>
+    </ItemGroup>
+
+    <Target Name="GenerateRevitGlobalUsings"
+            BeforeTargets="GenerateGlobalUsings"
+            Condition="'$(ImplicitUsings)' == 'true'">
+
+        <AddImplicitUsings
+                AdditionalUsings="@(AdditionalUsing)"
+                PackageRefrences="@(PackageReference)">
+            <Output TaskParameter="Usings"
+                    ItemName="_RevitGlobalUsings"/>
+        </AddImplicitUsings>
+
+        <ItemGroup>
+            <Using Include="@(_RevitGlobalUsings)" />
+        </ItemGroup>
+    </Target>
+    
+</Project>

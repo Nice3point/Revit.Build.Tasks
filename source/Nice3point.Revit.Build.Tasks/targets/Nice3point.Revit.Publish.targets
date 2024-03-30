@@ -1,0 +1,62 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!--
+    ============================================================
+                            Publish Addin
+    
+    Targets for publishing and cleaning up the add-in
+    ============================================================
+    -->
+
+    <PropertyGroup>
+        <PublishAddinFiles Condition="'$(PublishAddinFiles)' == ''">false</PublishAddinFiles>
+    </PropertyGroup>
+
+    <Target Name="_GenerateAddinPackage"
+            AfterTargets="CoreBuild">
+        <ItemGroup>
+            <RootItem Include="$(ProjectDir)*.addin"/>
+            <AddinItem Include="$(TargetDir)**\*"/>
+        </ItemGroup>
+
+        <PropertyGroup>
+            <RootDir>bin\$(RevitVersion) $(Configuration)\</RootDir>
+            <AddinDir>$(RootDir)$(AssemblyName)\</AddinDir>
+        </PropertyGroup>
+
+        <Copy SourceFiles="@(RootItem)"
+              DestinationFolder="$(RootDir)"/>
+        <Copy SourceFiles="@(AddinItem)"
+              DestinationFolder="$(AddinDir)\%(RecursiveDir)"/>
+
+        <ItemGroup>
+            <AddinFiles Include="$(RootDir)**\*"/>
+        </ItemGroup>
+
+        <Copy SourceFiles="@(AddinFiles)"
+              Condition="$(PublishAddinFiles)"
+              DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
+    </Target>
+
+    <Target Name="_PublishRevitAddin"
+            AfterTargets="_GenerateAddinPackage"
+            Condition="$(PublishAddinFiles)">
+
+        <ItemGroup>
+            <AddinFiles Include="bin\$(RevitVersion) $(Configuration)\**\*"/>
+        </ItemGroup>
+
+        <Copy SourceFiles="@(AddinFiles)"
+              Condition="$(PublishAddinFiles)"
+              DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
+    </Target>
+
+    <Target Name="_CleanRevitAddinFolder"
+            AfterTargets="Clean"
+            Condition="$(PublishAddinFiles)">
+
+        <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName)"/>
+        <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName).addin"/>
+    </Target>
+
+</Project>
