@@ -35,11 +35,11 @@ By default, some properties are set that are optimal for developing and publishi
 This target generates the Define Constants needed to support code for multiple Revit versions. 
 `OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions
 
-| Project configuration | Solution configurations           | Generated Define constants                                                  |
-|-----------------------|:----------------------------------|-----------------------------------------------------------------------------|
-| Debug R20             | Debug R20, Release R21, Revit2022 | REVIT2020, REVIT2020_OR_GREATER                                             |
-| Release R21           | Debug R20, Release R21, Revit2022 | REVIT2021, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER                       |
-| Revit2022             | Debug R20, Release R21, Revit2022 | REVIT2022, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER, REVIT2022_OR_GREATER |
+| Project configuration | Solution configurations              | Generated Define constants                                                  |
+|-----------------------|:-------------------------------------|-----------------------------------------------------------------------------|
+| Debug R20             | Debug R20, Release R21, Release 2022 | REVIT2020, REVIT2020_OR_GREATER                                             |
+| Release R21           | Debug R20, Release R21, Release 2022 | REVIT2021, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER                       |
+| Release 2022          | Debug R20, Release R21, Release 2022 | REVIT2022, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER, REVIT2022_OR_GREATER |
 
 Usage:
 
