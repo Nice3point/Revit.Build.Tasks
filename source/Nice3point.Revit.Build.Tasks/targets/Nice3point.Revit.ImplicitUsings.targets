@@ -20,7 +20,7 @@
 
         <AddImplicitUsings
                 AdditionalUsings="@(AdditionalUsing)"
-                PackageRefrences="@(PackageReference)">
+                PackageReferences="@(PackageReference)">
             <Output TaskParameter="Usings"
                     ItemName="_RevitGlobalUsings"/>
         </AddImplicitUsings>
