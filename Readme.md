@@ -22,11 +22,11 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 By default, some properties are set that are optimal for developing and publishing the plugin for multiple Revit versions.
 
-| Property                          | Default value | Description                                                                                   |
-|-----------------------------------|---------------|-----------------------------------------------------------------------------------------------|
-| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application |
-| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application   |
-| PublishAddinFiles                 | false         | Copies addin files to the AppData\Autodesk\Revit\Addins folder                                |
+| Property                          | Default value | Description                                                                                                                                                            |
+|-----------------------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                          |
+| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                            |
+| PublishAddinFiles                 | false         | Copies addin files to the **%AppData%\Autodesk\Revit\Addins** folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager. |
 
 ## MSBuild Targets
 
