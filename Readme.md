@@ -23,11 +23,21 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 By default, some properties are set that are optimal for publishing an application.
 
-| Property                          | Default value | Description                                                                                                                                                            |
-|-----------------------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                          |
-| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                            |
-| PublishAddinFiles                 | false         | Copies addin files to the **%AppData%\Autodesk\Revit\Addins** folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager. |
+| Property                          | Default value | Description                                                                                                                                                         |
+|-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
+| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
+| PublishAddinFiles                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
+
+These properties are automatically applied to the `.csproj` file by default and can be overriden:
+
+```xml
+<PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PublishAddinFiles>false</PublishAddinFiles>
+</PropertyGroup>
+```
 
 ## MSBuild Targets
 
@@ -64,21 +74,22 @@ To disable it, set `<DisableImplicitFrameworkDefines>false</DisableImplicitFrame
 
 ### Implicit global usings
 
-Included a target for generating implicit global Usings depending on the installed Nuget packages. Helps to reduce the frequent use of `using` in a project.
+Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
 
-| Using                              | Enabled by package          | Description                                                    |
-|------------------------------------|-----------------------------|----------------------------------------------------------------|
-| using Autodesk.Revit.DB;           | -                           | Always enabled                                                 |
-| using Nice3point.Revit.Extensions; | Nice3point.Revit.Extensions | Added only if the required package is available in the project |
-| using JetBrains.Annotations;       | Nice3point.Revit.Extensions | Added only if the required package is available in the project |
+| Global Using                       | Enabled by reference            |
+|------------------------------------|---------------------------------|
+| using Autodesk.Revit.DB;           | RevitAPI.dll                    |
+| using Nice3point.Revit.Extensions; | Nice3point.Revit.Extensions.dll |
+| using JetBrains.Annotations;       | JetBrains.Annotations.dll       |
 
 To disable it, set `<ImplicitUsings>false</ImplicitUsings>`.
 
 ### Publishing
 
-Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins folder` after building a project.
+Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
+
 `Clean solution` or `Clean project` will delete the published files.
 
-Copying the files provides the ability to attach the debugger to the add-in when Revit is started for easy add-in debugging and automating testing.
+Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
-Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`.
+Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`. Should only be enabled in projects containing the `.addin` file.
