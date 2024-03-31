@@ -1,11 +1,3 @@
-# 1.0.0-preview.1.2
+# 1.0.0-preview.1.3
 
-Fix typo
-
-# 1.0.0-preview.1.1
-
-Fix net48 compability
-
-# 1.0.0-preview.1.0
-
-Initial release
+Smart global usings
