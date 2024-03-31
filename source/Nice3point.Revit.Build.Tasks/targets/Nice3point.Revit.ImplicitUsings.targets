@@ -9,9 +9,9 @@
     -->
     
     <ItemGroup>
-        <AdditionalUsing Include="Autodesk.Revit.DB"/>
-        <AdditionalUsing Include="Nice3point.Revit.Extensions" RequiredPackage="Nice3point.Revit.Extensions"/>
-        <AdditionalUsing Include="JetBrains.Annotations" RequiredPackage="Nice3point.Revit.Extensions"/>
+        <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
+        <_ImplicitRevitUsing Include="Nice3point.Revit.Extensions" RequiredReference="Nice3point.Revit.Extensions.dll"/>
+        <_ImplicitRevitUsing Include="JetBrains.Annotations" RequiredReference="JetBrains.Annotations.dll"/>
     </ItemGroup>
 
     <Target Name="GenerateRevitGlobalUsings"
@@ -19,8 +19,8 @@
             Condition="'$(ImplicitUsings)' == 'true'">
 
         <AddImplicitUsings
-                AdditionalUsings="@(AdditionalUsing)"
-                PackageReferences="@(PackageReference)">
+                AdditionalUsings="@(_ImplicitRevitUsing)"
+                References="@(Reference)">
             <Output TaskParameter="Usings"
                     ItemName="_RevitGlobalUsings"/>
         </AddImplicitUsings>
