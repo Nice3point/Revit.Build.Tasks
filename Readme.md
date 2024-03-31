@@ -4,7 +4,7 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Build.Tasks?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/Revit.Build.Tasks/develop?style=for-the-badge)](https://github.com/Nice3point/Revit.Build.Tasks/commits/main)
 
-This repository contains the MSBuild tasks required for publishing Revit applications.
+This repository contains the MSBuild tasks for developing and publishing the plugin for multiple Revit versions.
 
 ## Installation
 
@@ -14,13 +14,14 @@ You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3p
 <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
 ```
 
-How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development. About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build]).
+How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
+About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build]).
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
 ## MSBuild Properties
 
-By default, some properties are set that are optimal for developing and publishing the plugin for multiple Revit versions.
+By default, some properties are set that are optimal for publishing an application.
 
 | Property                          | Default value | Description                                                                                                                                                            |
 |-----------------------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -30,10 +31,10 @@ By default, some properties are set that are optimal for developing and publishi
 
 ## MSBuild Targets
 
-### Generate OR_GREATER preprocessor symbols Target
+### OR_GREATER preprocessor symbols
 
-This target generates the Define Constants needed to support code for multiple Revit versions. 
-`OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions
+Included a target for generating the Define Constants needed to support code for multiple Revit versions.
+`OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions.
 
 | Project configuration | Solution configurations              | Generated Define constants                                                  |
 |-----------------------|:-------------------------------------|-----------------------------------------------------------------------------|
@@ -51,23 +52,31 @@ Usage:
 #endif
 ```
 
+To support removed APIs in newer versions of Revit, you can invert the constant:
+
+```C#
+#if !REVIT2023_OR_GREATER
+    var builtinCategory = (BuiltInCategory) category.Id.IntegerValue;
+#endif
+```
+
 To disable it, set `<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>`.
 
-### Generate implicit global usings Target
+### Implicit global usings
 
-This target adds implicit global Usings depending on the installed Nuget packages. Helps to reduce the usings frequently `using` in a project.
+Included a target for generating implicit global Usings depending on the installed Nuget packages. Helps to reduce the frequent use of `using` in a project.
 
-| Using                       | Enabled by package          |
-|-----------------------------|-----------------------------|
-| Autodesk.Revit.DB           | -                           |
-| Nice3point.Revit.Extensions | Nice3point.Revit.Extensions |
-| JetBrains.Annotations       | Nice3point.Revit.Extensions |
+| Using                              | Enabled by package          | Description                                                    |
+|------------------------------------|-----------------------------|----------------------------------------------------------------|
+| using Autodesk.Revit.DB;           | -                           | Always enabled                                                 |
+| using Nice3point.Revit.Extensions; | Nice3point.Revit.Extensions | Added only if the required package is available in the project |
+| using JetBrains.Annotations;       | Nice3point.Revit.Extensions | Added only if the required package is available in the project |
 
 To disable it, set `<ImplicitUsings>false</ImplicitUsings>`.
 
-### Publish Target
+### Publishing
 
-This target copies addin files to the `AppData\Autodesk\Revit\Addins folder` after project building.
-Cleaning the solution will delete the published files.
+Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins folder` after building a project.
+`Clean solution` or `Clean project` will delete the published files.
 
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`.
