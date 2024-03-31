@@ -79,4 +79,6 @@ To disable it, set `<ImplicitUsings>false</ImplicitUsings>`.
 Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins folder` after building a project.
 `Clean solution` or `Clean project` will delete the published files.
 
+Copying the files provides the ability to attach the debugger to the add-in when Revit is started for easy add-in debugging and automating testing.
+
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`.
