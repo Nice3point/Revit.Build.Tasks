@@ -4,15 +4,17 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Build.Tasks?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/Revit.Build.Tasks/develop?style=for-the-badge)](https://github.com/Nice3point/Revit.Build.Tasks/commits/main)
 
-This repository contains the MSBuild tasks and targets required for publishing Revit applications.
+This repository contains the MSBuild tasks required for publishing Revit applications.
 
 ## Installation
 
-You can install Extensions as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
+You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
 
 ```text
 <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
 ```
+
+How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development. About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-dot-targets-files?view=vs-2022]).
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
