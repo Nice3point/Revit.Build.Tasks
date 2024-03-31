@@ -15,7 +15,7 @@ You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3p
 ```
 
 How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
-About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build]).
+About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build).
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
