@@ -14,7 +14,7 @@ You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3p
 <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
 ```
 
-How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development. About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-dot-targets-files?view=vs-2022]).
+How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development. About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build]).
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
@@ -30,7 +30,7 @@ By default, some properties are set that are optimal for developing and publishi
 
 ## MSBuild Targets
 
-### OR_GREATER preprocessor symbols Target
+### Generate OR_GREATER preprocessor symbols Target
 
 This target generates the Define Constants needed to support code for multiple Revit versions. 
 `OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions
@@ -53,9 +53,9 @@ Usage:
 
 To disable it, set `<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>`.
 
-### Implicit global usings Target
+### Generate implicit global usings Target
 
-This target adds implicit global Usings depending on the installed Nuget packages. Helps to reduce the usings frequently encountered in a project
+This target adds implicit global Usings depending on the installed Nuget packages. Helps to reduce the usings frequently `using` in a project.
 
 | Using                       | Enabled by package          |
 |-----------------------------|-----------------------------|
