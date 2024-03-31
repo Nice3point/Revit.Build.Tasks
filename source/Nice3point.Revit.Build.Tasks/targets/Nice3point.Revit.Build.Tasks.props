@@ -5,7 +5,7 @@
     <PropertyGroup>
         <BuildTasksDirectoryRoot>$(MSBuildThisFileDirectory)..\tasks\</BuildTasksDirectoryRoot>
         <BuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">net8.0</BuildTasksTFM>
-        <BuildTasksTFM Condition=" '$(MicrosoftNETBuildTasksTFM)' == ''">net48</BuildTasksTFM>
+        <BuildTasksTFM Condition=" '$(BuildTasksTFM)' == ''">net48</BuildTasksTFM>
         <BuildTasksDirectory>$(BuildTasksDirectoryRoot)$(BuildTasksTFM)\</BuildTasksDirectory>
         <BuildTasksAssembly>$(BuildTasksDirectory)Nice3point.Revit.Build.Tasks.dll</BuildTasksAssembly>
     </PropertyGroup>
