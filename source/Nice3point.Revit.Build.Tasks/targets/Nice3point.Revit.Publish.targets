@@ -13,7 +13,9 @@
     </PropertyGroup>
 
     <Target Name="_GenerateAddinPackage"
-            AfterTargets="CoreBuild">
+            AfterTargets="CoreBuild"
+            Condition="$(DisableAddinBundleGeneration) != 'true' AND $(RevitVersion) != ''">
+
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
             <AddinItem Include="$(TargetDir)**\*"/>
@@ -28,14 +30,8 @@
               DestinationFolder="$(RootDir)"/>
         <Copy SourceFiles="@(AddinItem)"
               DestinationFolder="$(AddinDir)\%(RecursiveDir)"/>
-
-        <ItemGroup>
-            <AddinFiles Include="$(RootDir)**\*"/>
-        </ItemGroup>
-
-        <Copy SourceFiles="@(AddinFiles)"
-              Condition="$(PublishAddinFiles)"
-              DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
+        <Copy SourceFiles="@(Content)"
+              DestinationFolder="$(AddinDir)\%(Content.PublishDirectory)\%(RecursiveDir)"/>
     </Target>
 
     <Target Name="_PublishRevitAddin"
