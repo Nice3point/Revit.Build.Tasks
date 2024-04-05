@@ -8,13 +8,13 @@
     ============================================================
     -->
 
-    <PropertyGroup Condition="'$(Configuration)' != 'Debug' And $(Configuration.Contains('Debug'))">
+    <PropertyGroup Condition="'$(Configuration)' != 'Debug' AND $(Configuration.Contains('Debug'))">
         <DebugType>full</DebugType>
         <DebugSymbols>true</DebugSymbols>
         <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)' != 'Release' And $(Configuration.Contains('Release'))">
+    <PropertyGroup Condition="'$(Configuration)' != 'Release' AND $(Configuration.Contains('Release'))">
         <Optimize>true</Optimize>
         <DebugType>none</DebugType>
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
