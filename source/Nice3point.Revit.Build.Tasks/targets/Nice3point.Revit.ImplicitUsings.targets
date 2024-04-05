@@ -8,15 +8,14 @@
     ============================================================
     -->
     
-    <ItemGroup>
-        <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
-        <_ImplicitRevitUsing Include="Nice3point.Revit.Extensions" RequiredReference="Nice3point.Revit.Extensions.dll"/>
-        <_ImplicitRevitUsing Include="JetBrains.Annotations" RequiredReference="JetBrains.Annotations.dll"/>
-    </ItemGroup>
-
     <Target Name="GenerateRevitGlobalUsings"
-            BeforeTargets="GenerateGlobalUsings"
-            Condition="'$(ImplicitUsings)' == 'true'">
+            AfterTargets="ResolveReferences">
+
+        <ItemGroup>
+            <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
+            <_ImplicitRevitUsing Include="Nice3point.Revit.Extensions" RequiredReference="Nice3point.Revit.Extensions.dll"/>
+            <_ImplicitRevitUsing Include="JetBrains.Annotations" RequiredReference="JetBrains.Annotations.dll"/>
+        </ItemGroup>
 
         <AddImplicitUsings
                 AdditionalUsings="@(_ImplicitRevitUsing)"
@@ -28,6 +27,16 @@
         <ItemGroup>
             <Using Include="@(_RevitGlobalUsings)" />
         </ItemGroup>
-    </Target>
+
+        <GenerateGlobalUsings Usings="@(Using)">
+            <Output TaskParameter="Lines" ItemName="_RevitGlobalUsingLines" />
+        </GenerateGlobalUsings>
+
+        <WriteLinesToFile
+                File="$(GeneratedGlobalUsingsFile)"
+                Lines="@(_RevitGlobalUsingLines)"
+                Overwrite="true"
+                WriteOnlyWhenDifferent="true" />
+    </Target>  
     
 </Project>
