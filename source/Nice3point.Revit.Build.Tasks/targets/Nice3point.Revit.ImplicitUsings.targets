@@ -7,9 +7,10 @@
     Define imlicit global usings
     ============================================================
     -->
-    
+
     <Target Name="GenerateRevitGlobalUsings"
-            AfterTargets="ResolveReferences">
+            AfterTargets="ResolveReferences"
+            Condition="$(DisableImplicitRevitUsings) != 'true' AND ('$(ImplicitUsings)' == 'true' or '$(ImplicitUsings)' == 'enable')">
 
         <ItemGroup>
             <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
