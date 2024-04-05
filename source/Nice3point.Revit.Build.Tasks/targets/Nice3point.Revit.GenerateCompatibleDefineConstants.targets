@@ -10,7 +10,7 @@
 
     <Target Name="GenerateRevitCompatibleDefineConstants"
             AfterTargets="AddImplicitDefineConstants"
-            Condition=" '$(DisableImplicitFrameworkDefines)' != 'true' ">
+            Condition="$(DisableImplicitRevitDefines) != 'true' ">
 
         <GenerateRevitCompatibleDefineConstants
                 CurrentVersion="$(RevitVersion)"
