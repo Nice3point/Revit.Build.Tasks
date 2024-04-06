@@ -70,7 +70,7 @@ To support removed APIs in newer versions of Revit, you can invert the constant:
 #endif
 ```
 
-To disable it, set `<DisableImplicitRevitDefines>true</DisableImplicitFrameworkDefines>`.
+To disable it, set `<DisableImplicitRevitDefines>true</DisableImplicitRevitDefines>`.
 
 ### Implicit global usings
 
@@ -85,7 +85,7 @@ Included a target for generating implicit global Usings depending on the project
 | using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
 | using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-To disable it, set `<DisableImplicitRevitUsings>true</ImplicitUsings>`.
+To disable it, set `<DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>`.
 
 ### Publishing
 
