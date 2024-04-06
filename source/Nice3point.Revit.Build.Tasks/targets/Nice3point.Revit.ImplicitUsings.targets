@@ -9,13 +9,16 @@
     -->
 
     <Target Name="GenerateRevitGlobalUsings"
-            AfterTargets="ResolveReferences"
+            AfterTargets="ResolveLockFileReferences"
             Condition="$(DisableImplicitRevitUsings) != 'true' AND ('$(ImplicitUsings)' == 'true' or '$(ImplicitUsings)' == 'enable')">
 
         <ItemGroup>
             <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
-            <_ImplicitRevitUsing Include="Nice3point.Revit.Extensions" RequiredReference="Nice3point.Revit.Extensions.dll"/>
             <_ImplicitRevitUsing Include="JetBrains.Annotations" RequiredReference="JetBrains.Annotations.dll"/>
+            <_ImplicitRevitUsing Include="Nice3point.Revit.Toolkit" RequiredReference="Nice3point.Revit.Toolkit.dll"/>
+            <_ImplicitRevitUsing Include="Nice3point.Revit.Extensions" RequiredReference="Nice3point.Revit.Extensions.dll"/>
+            <_ImplicitRevitUsing Include="CommunityToolkit.Mvvm.Input" RequiredReference="CommunityToolkit.Mvvm.dll"/>
+            <_ImplicitRevitUsing Include="CommunityToolkit.Mvvm.ComponentModel" RequiredReference="CommunityToolkit.Mvvm.dll"/>
         </ItemGroup>
 
         <AddImplicitUsings
