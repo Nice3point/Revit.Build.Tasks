@@ -70,19 +70,22 @@ To support removed APIs in newer versions of Revit, you can invert the constant:
 #endif
 ```
 
-To disable it, set `<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>`.
+To disable it, set `<DisableImplicitRevitDefines>true</DisableImplicitFrameworkDefines>`.
 
 ### Implicit global usings
 
 Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
 
-| Global Using                       | Enabled by reference            |
-|------------------------------------|---------------------------------|
-| using Autodesk.Revit.DB;           | RevitAPI.dll                    |
-| using Nice3point.Revit.Extensions; | Nice3point.Revit.Extensions.dll |
-| using JetBrains.Annotations;       | JetBrains.Annotations.dll       |
+| Global Using                                | Enabled by reference            |
+|---------------------------------------------|---------------------------------|
+| using Autodesk.Revit.DB;                    | RevitAPI.dll                    |
+| using JetBrains.Annotations;                | JetBrains.Annotations.dll       |
+| using Nice3point.Revit.Extensions;          | Nice3point.Revit.Extensions.dll |
+| using Nice3point.Revit.Toolkit;             | Nice3point.Revit.Toolkit.dll    |
+| using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
+| using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-To disable it, set `<ImplicitUsings>false</ImplicitUsings>`.
+To disable it, set `<DisableImplicitRevitUsings>true</ImplicitUsings>`.
 
 ### Publishing
 
@@ -91,5 +94,49 @@ Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addin
 `Clean solution` or `Clean project` will delete the published files.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
+
+By default, all project files and dependencies required for the plugin to run, including the `.addin` manifest, are copied.
+If you need to include additional files, such as configuration or family files, include them in the `Content` item.
+
+The `PublishDirectory` property specifies which subfolder of the plugin the file should be copied to.
+If it is not specified, the files will be copied to the root folder.
+
+```xml
+<ItemGroup>
+    <Content Include="Resources\Families\Window.rfa" PublishDirectory="Families"/>
+    <Content Include="Resources\Music\Click.wav" PublishDirectory="Music\Effects"/>
+    <Content Include="Resources\Images\**" PublishDirectory="Images"/>
+    <Content Include="Readme.md"/>
+</ItemGroup>
+```
+
+To disable copying Content file, set `CopyToPublishDirectory="Never"`
+
+```xml
+<ItemGroup>
+    <Content Include="Contributing.md" CopyToPublishDirectory="Never"/>
+</ItemGroup>
+```
+
+Result:
+
+```text
+📂%AppData%\Autodesk\Revit\Addins\2025
+ ┣📜RevitAddIn.addin
+ ┗📂RevitAddIn
+   ┣📂Families
+   ┃ ┗📜Family.rfa
+   ┣📂Images
+   ┃ ┣📜Image.png
+   ┃ ┣📜Image2.png
+   ┃ ┗📜Image3.jpg
+   ┣📂Music
+   ┃ ┗📂Effects
+   ┃   ┗📜Click.wav
+   ┣📜CommunityToolkit.Mvvm.dll
+   ┣📜RevitAddIn.dll
+   ┗📜Readme.md
+```
+
 
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`. Should only be enabled in projects containing the `.addin` file.
