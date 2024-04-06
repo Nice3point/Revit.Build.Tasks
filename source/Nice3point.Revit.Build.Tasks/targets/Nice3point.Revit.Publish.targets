@@ -19,8 +19,9 @@
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
             <AddinItem Include="$(TargetDir)**\*"/>
+            <FilteredContent Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' != 'Never'" />
         </ItemGroup>
-
+        
         <PropertyGroup>
             <RootDir>bin\$(RevitVersion) $(Configuration)\</RootDir>
             <AddinDir>$(RootDir)$(AssemblyName)\</AddinDir>
@@ -30,8 +31,8 @@
               DestinationFolder="$(RootDir)"/>
         <Copy SourceFiles="@(AddinItem)"
               DestinationFolder="$(AddinDir)\%(RecursiveDir)"/>
-        <Copy SourceFiles="@(Content)"
-              DestinationFolder="$(AddinDir)\%(Content.PublishDirectory)\%(RecursiveDir)"/>
+        <Copy SourceFiles="@(FilteredContent)"
+              DestinationFolder="$(AddinDir)\%(FilteredContent.PublishDirectory)\%(RecursiveDir)"/>
     </Target>
 
     <Target Name="_PublishRevitAddin"
@@ -45,6 +46,8 @@
         <Copy SourceFiles="@(AddinFiles)"
               Condition="$(PublishAddinFiles)"
               DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
+        
+        <Message Text="Publishing add-in $(AssemblyName) -> $(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName)" Importance="high"/>
     </Target>
 
     <Target Name="_CleanRevitAddinFolder"
@@ -53,6 +56,13 @@
 
         <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName)"/>
         <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName).addin"/>
+    </Target>
+    
+    <Target Name="_CleanAddinPackage"
+            AfterTargets="Clean"
+            Condition="$(DisableAddinBundleGeneration) != 'true' AND $(RevitVersion) != ''">
+
+        <RemoveDir Directories="bin\$(RevitVersion) $(Configuration)\"/>
     </Target>
 
 </Project>
