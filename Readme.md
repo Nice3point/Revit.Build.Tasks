@@ -11,7 +11,7 @@ This repository contains the MSBuild tasks for developing and publishing the plu
 You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
 
 ```text
-<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
+<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="1.*"/>
 ```
 
 How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
