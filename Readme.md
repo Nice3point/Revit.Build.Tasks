@@ -11,33 +11,13 @@ This repository contains the MSBuild tasks for developing and publishing the plu
 You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
 
 ```text
-<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*"/>
+<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="1.*"/>
 ```
 
 How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
 About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build).
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
-
-## MSBuild Properties
-
-By default, some properties are set that are optimal for publishing an application.
-
-| Property                          | Default value | Description                                                                                                                                                         |
-|-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
-| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
-| PublishAddinFiles                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
-
-These properties are automatically applied to the `.csproj` file by default and can be overriden:
-
-```xml
-<PropertyGroup>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <PublishAddinFiles>false</PublishAddinFiles>
-</PropertyGroup>
-```
 
 ## MSBuild Targets
 
@@ -140,3 +120,23 @@ Result:
 
 
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`. Should only be enabled in projects containing the `.addin` file.
+
+## MSBuild Properties
+
+By default, some properties are set that are optimal for publishing an application.
+
+| Property                          | Default value | Description                                                                                                                                                         |
+|-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
+| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
+| PublishAddinFiles                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
+
+These properties are automatically applied to the `.csproj` file by default and can be overriden:
+
+```xml
+<PropertyGroup>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PublishAddinFiles>false</PublishAddinFiles>
+</PropertyGroup>
+```
