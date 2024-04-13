@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Changed publishing directory from bin to bin\publish
+
 # 1.1.0
 
 - Now you can add extra file to publishing. For description see Readme.md
