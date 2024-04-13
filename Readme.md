@@ -26,7 +26,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 Included a target for generating the Define Constants needed to support code for multiple Revit versions.
 `OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions.
 
-| Project configuration | Solution configurations              | Generated Define constants                                                  |
+| Current configuration | Project configurations               | Generated define constants                                                  |
 |-----------------------|:-------------------------------------|-----------------------------------------------------------------------------|
 | Debug R20             | Debug R20, Release R21, Release 2022 | REVIT2020, REVIT2020_OR_GREATER                                             |
 | Release R21           | Debug R20, Release R21, Release 2022 | REVIT2021, REVIT2020_OR_GREATER, REVIT2021_OR_GREATER                       |
@@ -50,7 +50,21 @@ To support removed APIs in newer versions of Revit, you can invert the constant:
 #endif
 ```
 
-To disable it, set `<DisableImplicitRevitDefines>true</DisableImplicitRevitDefines>`.
+Constants are generated from the names of project configurations. If your project configurations do not contain metadata about the version, you can specify it explicitly:
+
+```xml
+<PropertyGroup>
+    <RevitVersion>2025</RevitVersion>
+</PropertyGroup>
+```
+
+To disable it, set:
+
+```xml
+<PropertyGroup>
+    <DisableImplicitRevitDefines>true</DisableImplicitRevitDefines>
+</PropertyGroup>
+```
 
 ### Publishing
 
@@ -59,6 +73,14 @@ Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addin
 `Clean solution` or `Clean project` will delete the published files.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
+
+Should only be enabled in projects containing the `.addin` file. Disabled by default, to enable, set:
+
+```xml
+<PropertyGroup>
+    <PublishAddinFiles>true</PublishAddinFiles>
+</PropertyGroup>
+```
 
 By default, all project files and dependencies required for the plugin to run, including the `.addin` manifest, are copied.
 If you need to include additional files, such as configuration or family files, include them in the `Content` item.
@@ -103,9 +125,6 @@ Result:
    ┗📜Readme.md
 ```
 
-
-Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`. Should only be enabled in projects containing the `.addin` file.
-
 ### Implicit global usings
 
 Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
@@ -119,7 +138,14 @@ Included a target for generating implicit global Usings depending on the project
 | using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
 | using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-To disable it, set `<DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>`.
+To disable it, set:
+```xml
+<PropertyGroup>
+    <DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>
+    <!--OR-->
+    <ImplicitUsings>false</ImplicitUsings>
+</PropertyGroup>
+```
 
 ## MSBuild Properties
 
