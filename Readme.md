@@ -52,21 +52,6 @@ To support removed APIs in newer versions of Revit, you can invert the constant:
 
 To disable it, set `<DisableImplicitRevitDefines>true</DisableImplicitRevitDefines>`.
 
-### Implicit global usings
-
-Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
-
-| Global Using                                | Enabled by reference            |
-|---------------------------------------------|---------------------------------|
-| using Autodesk.Revit.DB;                    | RevitAPI.dll                    |
-| using JetBrains.Annotations;                | JetBrains.Annotations.dll       |
-| using Nice3point.Revit.Extensions;          | Nice3point.Revit.Extensions.dll |
-| using Nice3point.Revit.Toolkit;             | Nice3point.Revit.Toolkit.dll    |
-| using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
-| using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
-
-To disable it, set `<DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>`.
-
 ### Publishing
 
 Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
@@ -120,6 +105,21 @@ Result:
 
 
 Disabled by default. To enable it, set `<PublishAddinFiles>true</PublishAddinFiles>`. Should only be enabled in projects containing the `.addin` file.
+
+### Implicit global usings
+
+Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
+
+| Global Using                                | Enabled by reference            |
+|---------------------------------------------|---------------------------------|
+| using Autodesk.Revit.DB;                    | RevitAPI.dll                    |
+| using JetBrains.Annotations;                | JetBrains.Annotations.dll       |
+| using Nice3point.Revit.Extensions;          | Nice3point.Revit.Extensions.dll |
+| using Nice3point.Revit.Toolkit;             | Nice3point.Revit.Toolkit.dll    |
+| using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
+| using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
+
+To disable it, set `<DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>`.
 
 ## MSBuild Properties
 
