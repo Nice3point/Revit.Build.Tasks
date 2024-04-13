@@ -58,7 +58,7 @@ Constants are generated from the names of project configurations. If your projec
 </PropertyGroup>
 ```
 
-To disable it, set:
+**To disable it, set:**
 
 ```xml
 <PropertyGroup>
@@ -74,7 +74,9 @@ Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addin
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
-Should only be enabled in projects containing the `.addin` file. Disabled by default, to enable, set:
+Should only be enabled in projects containing the `.addin` file. 
+
+**Disabled by default, to enable, set:**
 
 ```xml
 <PropertyGroup>
@@ -138,7 +140,8 @@ Included a target for generating implicit global Usings depending on the project
 | using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
 | using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-To disable it, set:
+**To disable it, set:**
+
 ```xml
 <PropertyGroup>
     <DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>
