@@ -1,3 +1,8 @@
+# 1.1.2
+
+- Update Readme
+- Add extra `clean` folder
+
 # 1.1.1
 
 - Changed publishing directory from bin to bin\publish
