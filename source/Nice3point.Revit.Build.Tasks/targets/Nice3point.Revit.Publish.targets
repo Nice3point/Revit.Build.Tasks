@@ -62,9 +62,9 @@
 
     <Target Name="_CleanAddinPackage"
             AfterTargets="Clean"
-            Condition="$(DisableAddinBundleGeneration) != 'true' AND $(RevitVersion) != ''">
+            Condition="$(DisableAddinBundleGeneration) != 'true'">
 
-        <RemoveDir Directories="bin\$(RevitVersion) $(Configuration)\"/>
+        <RemoveDir Directories="$(TargetDir)publish\"/>
     </Target>
 
 </Project>
