@@ -11,7 +11,7 @@ This repository contains the MSBuild tasks for developing and publishing the plu
 You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
 
 ```text
-<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="1.*"/>
+<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="2.*"/>
 ```
 
 How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
@@ -105,6 +105,7 @@ If it is not specified, the files will be copied to the root folder.
     <Content Include="Resources\Families\Window.rfa" PublishDirectory="Families" CopyToPublishDirectory="PreserveNewest"/>
     <Content Include="Resources\Music\Click.wav" PublishDirectory="Music\Effects" CopyToPublishDirectory="PreserveNewest"/>
     <Content Include="Resources\Images\**" PublishDirectory="Images" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Include="Readme.md" CopyToPublishDirectory="PreserveNewest"/>
 </ItemGroup>
 ```
 
