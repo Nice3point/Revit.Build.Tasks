@@ -1,3 +1,9 @@
+# 2.0.0
+
+- Disabled publishing Content files by default. To enable it, set `CopyToPublishDirectory=‘Always’` or `CopyToPublishDirectory=‘PreserveNewest’`.
+- PreserveNewest and Always now affect whether existing files should be skipped or overwritten always
+- Increased major version to avoid conflicts in existing projects
+
 # 1.1.2
 
 - Update Readme
