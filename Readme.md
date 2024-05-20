@@ -105,6 +105,7 @@ If it is not specified, the files will be copied to the root folder.
     <Content Include="Resources\Families\Window.rfa" PublishDirectory="Families" CopyToPublishDirectory="PreserveNewest"/>
     <Content Include="Resources\Music\Click.wav" PublishDirectory="Music\Effects" CopyToPublishDirectory="PreserveNewest"/>
     <Content Include="Resources\Images\**" PublishDirectory="Images" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Include="Readme.md" CopyToPublishDirectory="PreserveNewest"/>
 </ItemGroup>
 ```
 
