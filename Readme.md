@@ -68,7 +68,7 @@ Constants are generated from the names of project configurations. If your projec
 
 ### Publishing
 
-Included a target for copying addin files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
+Included a target for copying .addin files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
 
 `Clean solution` or `Clean project` will delete the published files.
 
@@ -87,23 +87,24 @@ Should only be enabled in projects containing the `.addin` file.
 By default, all project files and dependencies required for the plugin to run, including the `.addin` manifest, are copied.
 If you need to include additional files, such as configuration or family files, include them in the `Content` item.
 
+```xml
+<ItemGroup>
+    <Content Include="Resources\Families\Window.rfa" CopyToPublishDirectory="Always"/>
+    <Content Include="Resources\Music\Click.wav" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Include="Resources\Images\**" CopyToPublishDirectory="PreserveNewest"/>
+</ItemGroup>
+```
+
+To enable copying Content files, set `CopyToPublishDirectory="Always"` or `CopyToPublishDirectory="PreserveNewest"`
+
 The `PublishDirectory` property specifies which subfolder of the plugin the file should be copied to.
 If it is not specified, the files will be copied to the root folder.
 
 ```xml
 <ItemGroup>
-    <Content Include="Resources\Families\Window.rfa" PublishDirectory="Families"/>
-    <Content Include="Resources\Music\Click.wav" PublishDirectory="Music\Effects"/>
-    <Content Include="Resources\Images\**" PublishDirectory="Images"/>
-    <Content Include="Readme.md"/>
-</ItemGroup>
-```
-
-To disable copying Content file, set `CopyToPublishDirectory="Never"`
-
-```xml
-<ItemGroup>
-    <Content Include="Contributing.md" CopyToPublishDirectory="Never"/>
+    <Content Include="Resources\Families\Window.rfa" PublishDirectory="Families" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Include="Resources\Music\Click.wav" PublishDirectory="Music\Effects" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Include="Resources\Images\**" PublishDirectory="Images" CopyToPublishDirectory="PreserveNewest"/>
 </ItemGroup>
 ```
 
