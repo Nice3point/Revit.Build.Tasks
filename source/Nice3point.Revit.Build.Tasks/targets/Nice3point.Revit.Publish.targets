@@ -19,7 +19,8 @@
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
             <AddinItem Include="$(TargetDir)**\*" Exclude="**\publish\**\*"/>
-            <FilteredContent Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' != 'Never'"/>
+            <_ResolvedFileToPublishAlways Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'Always'"/>
+            <_ResolvedFileToPublishPreserveNewest Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'PreserveNewest'"/>
         </ItemGroup>
 
         <PropertyGroup>
@@ -31,8 +32,12 @@
               DestinationFolder="$(RootDir)"/>
         <Copy SourceFiles="@(AddinItem)"
               DestinationFolder="$(AddinDir)\%(RecursiveDir)"/>
-        <Copy SourceFiles="@(FilteredContent)"
-              DestinationFolder="$(AddinDir)\%(FilteredContent.PublishDirectory)\%(RecursiveDir)"/>
+        <Copy SourceFiles="@(_ResolvedFileToPublishAlways)"
+              SkipUnchangedFiles="false"
+              DestinationFolder="$(AddinDir)\%(_ResolvedFileToPublishAlways.PublishDirectory)\%(RecursiveDir)"/>
+        <Copy SourceFiles="@(_ResolvedFileToPublishPreserveNewest)"
+              SkipUnchangedFiles="true"
+              DestinationFolder="$(AddinDir)\%(_ResolvedFileToPublishPreserveNewest.PublishDirectory)\%(RecursiveDir)"/>
 
         <Message Text="$(AssemblyName) -> $(TargetDir)publish" Importance="high"/>
     </Target>
