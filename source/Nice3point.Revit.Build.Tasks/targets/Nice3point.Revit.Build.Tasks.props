@@ -2,6 +2,10 @@
 
 <Project>
 
+    <ImportGroup>
+        <Import Project="Nice3point.Revit.Common.props" />
+    </ImportGroup>
+    
     <PropertyGroup>
         <BuildTasksDirectoryRoot>$(MSBuildThisFileDirectory)..\tasks\</BuildTasksDirectoryRoot>
         <BuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">net8.0</BuildTasksTFM>
@@ -22,6 +26,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <DisableAddinBundleGeneration>false</DisableAddinBundleGeneration>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
