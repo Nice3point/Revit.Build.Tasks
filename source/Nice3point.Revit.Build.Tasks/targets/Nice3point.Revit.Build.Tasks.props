@@ -13,8 +13,15 @@
     <UsingTask TaskName="$(MSBuildThisFileName).AddImplicitUsings" AssemblyFile="$(BuildTasksAssembly)"/>
     <UsingTask TaskName="$(MSBuildThisFileName).GenerateRevitCompatibleDefineConstants" AssemblyFile="$(BuildTasksAssembly)"/>
 
-    <PropertyGroup>
+    <PropertyGroup Condition="$(DefineConstants.Contains('NETCOREAPP'))">
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="!$(DefineConstants.Contains('NETCOREAPP'))">
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
