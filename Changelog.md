@@ -1,4 +1,10 @@
+# 2.0.1
+
+- Enabled EnableDynamicLoading by default for NetCore apps
+- Disabled CopyLocalLockFileAssemblies for NetCore apps
+
 # 2.0.0
+
 
 - Disabled publishing Content files by default. To enable it, set `CopyToPublishDirectory=‘Always’` or `CopyToPublishDirectory=‘PreserveNewest’`.
 - PreserveNewest and Always now affect whether existing files should be skipped or overwritten always
