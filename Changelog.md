@@ -1,3 +1,7 @@
+# 2.0.2
+
+- Import common properties
+
 # 2.0.1
 
 - Enabled EnableDynamicLoading by default for NetCore apps
