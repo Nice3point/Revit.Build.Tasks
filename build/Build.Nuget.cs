@@ -11,13 +11,15 @@ sealed partial class Build
     Target NuGetPush => _ => _
         .DependsOn(Pack)
         .Requires(() => NugetApiKey)
-        .OnlyWhenStatic(() => IsLocalBuild && GitRepository.IsOnMainOrMasterBranch())
+        .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(() =>
         {
             foreach (var package in ArtifactsDirectory.GlobFiles("*.nupkg"))
+            {
                 DotNetNuGetPush(settings => settings
                     .SetTargetPath(package)
                     .SetSource(NugetApiUrl)
                     .SetApiKey(NugetApiKey));
+            }
         });
 }

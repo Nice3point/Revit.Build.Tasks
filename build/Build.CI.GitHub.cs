@@ -9,8 +9,7 @@ sealed partial class Build
     Target PublishGitHub => _ => _
         .DependsOn(Pack)
         .Requires(() => GitHubToken)
-        .Requires(() => GitRepository)
-        .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainOrMasterBranch())
+        .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(async () =>
         {
             GitHubTasks.GitHubClient = new GitHubClient(new ProductHeaderValue(Solution.Name))
@@ -65,18 +64,6 @@ sealed partial class Build
             await GitHubTasks.GitHubClient.Repository.Release.UploadAsset(createdRelease, releaseAssetUpload);
             Log.Information("Artifact: {Path}", file);
         }
-    }
-
-    string CreateGithubChangelog()
-    {
-        Assert.True(File.Exists(ChangeLogPath), $"Unable to locate the changelog file: {ChangeLogPath}");
-        Log.Information("Changelog: {Path}", ChangeLogPath);
-
-        var changelog = BuildChangelog();
-        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {Version}");
-
-        WriteCompareUrl(changelog);
-        return changelog.ToString();
     }
 
     void WriteCompareUrl(StringBuilder changelog)
