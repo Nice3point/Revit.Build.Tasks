@@ -1,11 +1,9 @@
 ﻿using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 sealed partial class Build
 {
-    const string NugetApiUrl = "https://api.nuget.org/v3/index.json";
     [Secret] [Parameter] string NugetApiKey;
 
     Target NuGetPush => _ => _
@@ -14,12 +12,13 @@ sealed partial class Build
         .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(() =>
         {
+            return;
             foreach (var package in ArtifactsDirectory.GlobFiles("*.nupkg"))
             {
                 DotNetNuGetPush(settings => settings
                     .SetTargetPath(package)
-                    .SetSource(NugetApiUrl)
-                    .SetApiKey(NugetApiKey));
+                    .SetApiKey(NugetApiKey)
+                    .SetSource("https://api.nuget.org/v3/index.json"));
             }
         });
 }

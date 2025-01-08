@@ -6,7 +6,6 @@ sealed partial class Build : NukeBuild
 {
     string[] Configurations;
 
-    [Secret] [Parameter] string GitHubToken;
     [GitRepository] readonly GitRepository GitRepository;
     [Solution(GenerateProjects = true)] readonly Solution Solution;
 
