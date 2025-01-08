@@ -68,21 +68,33 @@ Constants are generated from the names of project configurations. If your projec
 
 ### Publishing
 
-Included a target for copying .addin files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
+Included a target for copying Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
 
 `Clean solution` or `Clean project` will delete the published files.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
-Should only be enabled in projects containing the `.addin` file. 
-
-**Disabled by default, to enable, set:**
+Should only be enabled in projects containing the Revit manifest file (`.addin`). 
 
 ```xml
 <PropertyGroup>
-    <PublishAddinFiles>true</PublishAddinFiles>
+    <PublishRevitAddin>true</PublishRevitAddin>
 </PropertyGroup>
 ```
+
+**PublishRevitAddin disabled by default.**
+
+If you need to create an installer or a bundle but don't want to publish files to the `%AppData%\Autodesk\Revit\Addins` directory, use the **PublishRevitFiles** property instead:
+
+```xml
+<PropertyGroup>
+    <PublishRevitFiles>true</PublishRevitFiles>
+</PropertyGroup>
+```
+
+Filed will be published to the `bin\publish` folder.
+
+**PublishRevitFiles disabled by default.**
 
 By default, all project files and dependencies required for the plugin to run, including the `.addin` manifest, are copied.
 If you need to include additional files, such as configuration or family files, include them in the `Content` item.
@@ -112,7 +124,7 @@ If it is not specified, the files will be copied to the root folder.
 Result:
 
 ```text
-📂%AppData%\Autodesk\Revit\Addins\2025
+📂bin\publish ; %AppData%\Autodesk\Revit\Addins\2025
  ┣📜RevitAddIn.addin
  ┗📂RevitAddIn
    ┣📂Families
@@ -128,6 +140,8 @@ Result:
    ┣📜RevitAddIn.dll
    ┗📜Readme.md
 ```
+
+
 
 ### Implicit global usings
 
@@ -160,7 +174,7 @@ By default, some properties are set that are optimal for publishing an applicati
 |-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
 | AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
-| PublishAddinFiles                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
+| PublishRevitAddin                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
 
 These properties are automatically applied to the `.csproj` file by default and can be overriden:
 
@@ -168,6 +182,6 @@ These properties are automatically applied to the `.csproj` file by default and 
 <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <PublishAddinFiles>false</PublishAddinFiles>
+    <PublishRevitAddin>false</PublishRevitAddin>
 </PropertyGroup>
 ```

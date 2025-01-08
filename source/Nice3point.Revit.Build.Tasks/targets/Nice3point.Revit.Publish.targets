@@ -9,12 +9,14 @@
     -->
 
     <PropertyGroup>
-        <PublishAddinFiles Condition="'$(PublishAddinFiles)' == ''">false</PublishAddinFiles>
+        <PublishRevitAddin Condition="'$(PublishRevitAddin)' == ''">false</PublishRevitAddin>
+        <PublishRevitFiles Condition="'$(PublishRevitFiles)' == ''">false</PublishRevitFiles>
+        <PublishRevitFiles Condition="'$(PublishRevitFiles)' == '' AND $(PublishRevitAddin) == 'true'">true</PublishRevitFiles>
     </PropertyGroup>
 
-    <Target Name="_GenerateAddinPackage"
+    <Target Name="_PublishRevitFiles"
             AfterTargets="CoreBuild"
-            Condition="$(DisableAddinBundleGeneration) != 'true' AND $(RevitVersion) != ''">
+            Condition="$(PublishRevitFiles) == 'true' AND $(RevitVersion) != ''">
 
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
@@ -43,15 +45,14 @@
     </Target>
 
     <Target Name="_PublishRevitAddin"
-            AfterTargets="_GenerateAddinPackage"
-            Condition="$(PublishAddinFiles)">
+            AfterTargets="_PublishRevitFiles"
+            Condition="$(PublishRevitAddin)">
 
         <ItemGroup>
             <AddinFiles Include="$(TargetDir)publish\Revit $(RevitVersion) $(Configuration) addin\**\*"/>
         </ItemGroup>
 
         <Copy SourceFiles="@(AddinFiles)"
-              Condition="$(PublishAddinFiles)"
               DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
 
         <Message Text="Publishing add-in $(AssemblyName) -> $(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName)" Importance="high"/>
@@ -59,7 +60,7 @@
 
     <Target Name="_CleanRevitAddinFolder"
             AfterTargets="Clean"
-            Condition="$(PublishAddinFiles)">
+            Condition="$(PublishRevitAddin)">
 
         <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName)"/>
         <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName).addin"/>
@@ -67,7 +68,7 @@
 
     <Target Name="_CleanAddinPackage"
             AfterTargets="Clean"
-            Condition="$(DisableAddinBundleGeneration) != 'true'">
+            Condition="$(PublishRevitFiles) == 'true'">
 
         <RemoveDir Directories="$(TargetDir)publish\"/>
     </Target>

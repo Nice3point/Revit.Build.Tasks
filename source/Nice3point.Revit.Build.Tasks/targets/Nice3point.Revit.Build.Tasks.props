@@ -26,7 +26,6 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <DisableAddinBundleGeneration>false</DisableAddinBundleGeneration>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
