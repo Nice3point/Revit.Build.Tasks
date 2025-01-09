@@ -58,7 +58,7 @@ Constants are generated from the names of project configurations. If your projec
 </PropertyGroup>
 ```
 
-**To disable it, set:**
+**To disable preprocessor symbols, set:**
 
 ```xml
 <PropertyGroup>
@@ -168,13 +168,12 @@ Included a target for generating implicit global Usings depending on the project
 
 ## MSBuild Properties
 
-By default, some properties are set that are optimal for publishing an application.
+By default, some properties that are optimal for publishing an application are overriden:
 
 | Property                          | Default value | Description                                                                                                                                                         |
 |-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
 | AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
-| PublishRevitAddin                 | false         | Copies addin files to the `%AppData%\Autodesk\Revit\Addins` folder. Set `true` to enable copying. Handy for debugging the application instead of using AddinManager |
 
 These properties are automatically applied to the `.csproj` file by default and can be overriden:
 
@@ -182,6 +181,5 @@ These properties are automatically applied to the `.csproj` file by default and 
 <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <PublishRevitAddin>false</PublishRevitAddin>
 </PropertyGroup>
 ```
