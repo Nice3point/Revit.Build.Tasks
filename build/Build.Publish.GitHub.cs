@@ -47,12 +47,14 @@ sealed partial class Build
 
     void WriteCompareUrl(StringBuilder changelog)
     {
-        var tags = GitTasks.Git("describe --tags --abbrev=0 --always", logInvocation: false, logOutput: false);
-        var latestTag = tags.First().Text;
-        if (latestTag == GitRepository.Commit) return;
+        var tags = GitTasks
+            .Git("tag --list", logInvocation: false, logOutput: false)
+            .ToArray();
+
+        if (tags.Length < 2) return;
 
         if (changelog[^1] != '\r' || changelog[^1] != '\n') changelog.AppendLine(Environment.NewLine);
         changelog.Append("Full changelog: ");
-        changelog.Append(GitRepository.GetGitHubCompareTagsUrl(Version, latestTag));
+        changelog.Append(GitRepository.GetGitHubCompareTagsUrl(tags[^2].Text, tags[^1].Text));
     }
 }

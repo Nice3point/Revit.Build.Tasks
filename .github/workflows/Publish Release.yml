@@ -2,6 +2,11 @@ name: Publish Release
 
 on:
   workflow_dispatch:
+    inputs: 
+      version: 
+        type: string
+        description: 'Release version'
+        required: true
   push:
     tags:
       - '*'
@@ -13,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Cache packages
         uses: actions/cache@v4
         with:
@@ -21,8 +28,8 @@ jobs:
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
       - name: Run Nuke Build
-        run: ./.nuke/build.cmd PublishGitHub PublishNuget
+        run: ./.nuke/build.cmd PublishGitHub
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
+          PUBLISH_VERSION: ${{ github.event_name == 'push' && github.ref_name || github.event.inputs.version }}
