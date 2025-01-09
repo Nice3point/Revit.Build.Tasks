@@ -1,5 +1,4 @@
 using System.Text;
-using Nuke.Common.Git;
 using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitHub;
 using Octokit;
@@ -8,7 +7,7 @@ sealed partial class Build
 {
     Target PublishGitHub => _ => _
         .DependsOn(Pack)
-        .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
+        .OnlyWhenStatic(() => IsServerBuild)
         .Executes(async () =>
         {
             var gitHubName = GitRepository.GetGitHubName();

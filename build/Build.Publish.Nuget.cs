@@ -1,5 +1,4 @@
-﻿using Nuke.Common.Git;
-using Nuke.Common.Tools.DotNet;
+﻿using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 sealed partial class Build
@@ -9,7 +8,6 @@ sealed partial class Build
     Target PublishNuget => _ => _
         .DependsOn(Pack)
         .Requires(() => NugetApiKey)
-        .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(() =>
         {
             foreach (var package in ArtifactsDirectory.GlobFiles("*.nupkg"))
