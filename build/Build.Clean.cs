@@ -3,12 +3,8 @@
     Target Clean => _ => _
         .Executes(() =>
         {
-            Log.Information(GitHubToken);
-            Log.Information(NugetApiKey);
-            Log.Information(GitRepository.Commit);
-            Log.Information(GitRepository.Branch);
-            Log.Information(GitRepository.Head);
-            Log.Information(string.Join(", ", GitRepository.Tags));
+            Log.Information("Token: {GitHubToken}", GitHubToken);
+            Log.Information("Token: {NugetApiKey}", NugetApiKey);
             CleanDirectory(ArtifactsDirectory);
 
             foreach (var project in Solution.AllProjects.Where(project => project != Solution.Build))
