@@ -1,5 +1,6 @@
 {
   "$schema": "./build.schema.json",
   "Solution": "Revit.Build.Tasks.sln",
-  "Verbosity": "Normal"
+  "Verbosity": "Normal",
+  "NugetApiKey": "v1:ma7t/vdWq3Bcdf3+595Hi8OkRx518x+x9Wxo2d8Fi6NKX1TC6CSVhoQo57PsoOCg"
 }
