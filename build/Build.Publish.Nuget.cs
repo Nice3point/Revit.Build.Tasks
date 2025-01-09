@@ -4,7 +4,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 sealed partial class Build
 {
-    [Parameter] [Secret] string NugetApiKey;
+    [Parameter] [Secret] string NugetApiKey = EnvironmentInfo.GetVariable("NUGET_API_KEY");
 
     Target PublishNuget => _ => _
         .DependsOn(Pack)
@@ -12,7 +12,6 @@ sealed partial class Build
         .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(() =>
         {
-            return;
             foreach (var package in ArtifactsDirectory.GlobFiles("*.nupkg"))
             {
                 DotNetNuGetPush(settings => settings

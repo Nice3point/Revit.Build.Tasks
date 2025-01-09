@@ -6,20 +6,11 @@ using Octokit;
 
 sealed partial class Build
 {
-    [Parameter] [Secret] string GitHubToken;
-    
     Target PublishGitHub => _ => _
         .DependsOn(Pack)
-        .Requires(() => GitHubToken)
         .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(async () =>
         {
-            return;
-            GitHubTasks.GitHubClient = new GitHubClient(new ProductHeaderValue(Solution.Name))
-            {
-                Credentials = new Credentials(GitHubToken)
-            };
-
             var gitHubName = GitRepository.GetGitHubName();
             var gitHubOwner = GitRepository.GetGitHubOwner();
 
