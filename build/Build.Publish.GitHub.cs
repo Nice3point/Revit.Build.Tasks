@@ -10,7 +10,6 @@ sealed partial class Build
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(async () =>
         {
-            throw new Exception("Test");
             var gitHubName = GitRepository.GetGitHubName();
             var gitHubOwner = GitRepository.GetGitHubOwner();
 
