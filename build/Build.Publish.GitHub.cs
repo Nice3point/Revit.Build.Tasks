@@ -10,6 +10,7 @@ sealed partial class Build
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(async () =>
         {
+            throw new Exception("Test");
             var gitHubName = GitRepository.GetGitHubName();
             var gitHubOwner = GitRepository.GetGitHubOwner();
 
@@ -55,6 +56,6 @@ sealed partial class Build
 
         if (changelog[^1] != '\r' || changelog[^1] != '\n') changelog.AppendLine(Environment.NewLine);
         changelog.Append("Full changelog: ");
-        changelog.Append(GitRepository.GetGitHubCompareTagsUrl(tags[^2].Text, tags[^1].Text));
+        changelog.Append(GitRepository.GetGitHubCompareTagsUrl(tags[^1].Text, tags[^2].Text));
     }
 }

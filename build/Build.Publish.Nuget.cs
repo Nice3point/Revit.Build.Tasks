@@ -6,7 +6,7 @@ sealed partial class Build
     [Parameter] [Secret] string NugetApiKey = EnvironmentInfo.GetVariable("NUGET_API_KEY");
 
     Target PublishNuget => _ => _
-        .DependsOn(Pack)
+        .DependsOn(PublishGitHub)
         .Requires(() => NugetApiKey)
         .Executes(() =>
         {
