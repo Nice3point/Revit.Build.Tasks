@@ -9,14 +9,11 @@ sealed partial class Build
         {
             ValidateRelease();
 
-            foreach (var configuration in GlobBuildConfigurations())
-            {
-                DotNetPack(settings => settings
-                    .SetConfiguration(configuration)
-                    .SetVersion(Version)
-                    .SetOutputDirectory(ArtifactsDirectory)
-                    .SetVerbosity(DotNetVerbosity.minimal)
-                    .SetPackageReleaseNotes(CreateNugetChangelog()));
-            }
+            DotNetPack(settings => settings
+                .SetConfiguration("Release")
+                .SetVersion(Version)
+                .SetOutputDirectory(ArtifactsDirectory)
+                .SetVerbosity(DotNetVerbosity.minimal)
+                .SetPackageReleaseNotes(CreateNugetChangelog()));
         });
 }

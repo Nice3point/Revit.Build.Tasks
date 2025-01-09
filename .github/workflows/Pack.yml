@@ -1,13 +1,8 @@
-name: Workflow
+name: Pack
 
 on:
   push:
-    branches:
-      - '**'
-
   pull_request:
-    branches:
-      - '!main'
 
 jobs:
   windows:

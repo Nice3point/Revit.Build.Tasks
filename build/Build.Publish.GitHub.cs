@@ -16,8 +16,8 @@ sealed partial class Build
 
             ValidateRelease();
 
-            var artifacts = Directory.GetFiles(ArtifactsDirectory, "*");
             var changelog = CreateGithubChangelog();
+            var artifacts = Directory.GetFiles(ArtifactsDirectory, "*");
             Assert.NotEmpty(artifacts, "No artifacts were found to create the Release");
 
             var newRelease = new NewRelease(Version)
