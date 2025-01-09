@@ -22,7 +22,7 @@ jobs:
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
       - name: Run Nuke Build
-        run: ./.nuke/build.cmd PublishGitHub CleanFailedPublish
+        run: ./.nuke/build.cmd PublishGitHub PublishNuget CleanFailedRelease
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,7 +2,7 @@
 
 sealed partial class Build
 {
-    Target CleanFailedPublish => _ => _
+    Target CleanFailedRelease => _ => _
         .AssuredAfterFailure()
         .OnlyWhenDynamic(() => FailedTargets.Contains(PublishGitHub))
         .Executes(() =>
