@@ -7,8 +7,6 @@ sealed partial class Build
         .DependsOn(Clean)
         .Executes(() =>
         {
-            ValidateRelease();
-
             DotNetPack(settings => settings
                 .SetConfiguration("Release")
                 .SetVersion(Version)

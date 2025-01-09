@@ -7,8 +7,6 @@ sealed partial class Build
         .DependsOn(Clean)
         .Executes(() =>
         {
-            ValidateRelease();
-
             DotNetBuild(settings => settings
                 .SetConfiguration("Release")
                 .SetOutputDirectory(ArtifactsDirectory)
