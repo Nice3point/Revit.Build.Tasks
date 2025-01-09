@@ -1,12 +1,6 @@
 name: Publish Release
 
 on:
-  workflow_dispatch:
-    inputs: 
-      version: 
-        type: string
-        description: 'Release version'
-        required: true
   push:
     tags:
       - '*'
@@ -32,4 +26,4 @@ jobs:
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_VERSION: ${{ github.event_name == 'push' && github.ref_name || github.event.inputs.version }}
+          PUBLISH_VERSION: ${{ github.ref_name }}
