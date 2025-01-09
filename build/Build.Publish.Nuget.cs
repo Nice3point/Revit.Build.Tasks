@@ -4,9 +4,9 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 sealed partial class Build
 {
-    [Secret] [Parameter] string NugetApiKey;
+    [Parameter] [Secret] string NugetApiKey;
 
-    Target NuGetPush => _ => _
+    Target PublishNuget => _ => _
         .DependsOn(Pack)
         .Requires(() => NugetApiKey)
         .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())

@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Nuke Build
-        run: ./.nuke/build.cmd PublishGitHub
+        run: ./.nuke/build.cmd PublishGitHub PublishNuget
         env:
           NugetApiKey: ${{ secrets.NUGET_APIKEY }}
           GitHubToken: ${{ secrets.GITHUB_TOKEN }}

@@ -6,7 +6,7 @@ using Octokit;
 
 sealed partial class Build
 {
-    [Secret] [Parameter] string GitHubToken;
+    [Parameter] [Secret] string GitHubToken;
     
     Target PublishGitHub => _ => _
         .DependsOn(Pack)
@@ -14,6 +14,7 @@ sealed partial class Build
         .OnlyWhenStatic(() => IsServerBuild && GitRepository.IsOnMainBranch())
         .Executes(async () =>
         {
+            return;
             GitHubTasks.GitHubClient = new GitHubClient(new ProductHeaderValue(Solution.Name))
             {
                 Credentials = new Credentials(GitHubToken)
@@ -33,9 +34,7 @@ sealed partial class Build
                 Name = Version,
                 Body = changelog,
                 TargetCommitish = GitRepository.Commit,
-                Prerelease = Version.Contains("-beta") ||
-                             Version.Contains("-dev") ||
-                             Version.Contains("-preview")
+                Prerelease = Version.Contains("preview", StringComparison.OrdinalIgnoreCase)
             };
 
             var release = await GitHubTasks.GitHubClient.Repository.Release.Create(gitHubOwner, gitHubName, newRelease);
