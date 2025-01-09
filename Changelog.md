@@ -1,3 +1,8 @@
+# 3.0.0-preview.1.0
+
+- Property `PublishAddinFiles` renamed to ``PublishRevitAddin`.
+- Added new property `PublishRevitFiles`, to publish files to the `bin/publish` folder.
+
 # 2.0.2
 
 - Import common properties
