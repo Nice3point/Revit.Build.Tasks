@@ -170,16 +170,16 @@ Included a target for generating implicit global Usings depending on the project
 
 By default, some properties that are optimal for publishing an application are overriden:
 
-| Property                          | Default value | Description                                                                                                                                                         |
-|-----------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CopyLocalLockFileAssemblies       | true          | Copies NuGet package dependencies to the output directory. Required to publish an application                                                                       |
-| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application                                                                         |
+| Property                          | Default value | Description                                                                                      |
+|-----------------------------------|---------------|--------------------------------------------------------------------------------------------------|
+| EnableDynamicLoading              | true          | Indicates that an assembly is a dynamically loaded component. Required to publish an application |
+| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application      |
 
 These properties are automatically applied to the `.csproj` file by default and can be overriden:
 
 ```xml
 <PropertyGroup>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 </PropertyGroup>
 ```
