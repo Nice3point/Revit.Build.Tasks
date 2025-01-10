@@ -1,5 +1,3 @@
-using System.Text;
-using Nuke.Common.Tools.Git;
 using Nuke.Common.Tools.GitHub;
 using Octokit;
 
@@ -17,12 +15,12 @@ sealed partial class Build
             var artifacts = Directory.GetFiles(ArtifactsDirectory, "*");
             Assert.NotEmpty(artifacts, "No artifacts were found to create the Release");
 
-            var newRelease = new NewRelease(Version)
+            var newRelease = new NewRelease(ReleaseVersion)
             {
-                Name = Version,
+                Name = ReleaseVersion,
                 Body = changelog,
                 TargetCommitish = GitRepository.Commit,
-                Prerelease = Version.Contains("preview", StringComparison.OrdinalIgnoreCase)
+                Prerelease = ReleaseVersion.Contains("preview", StringComparison.OrdinalIgnoreCase)
             };
 
             var release = await GitHubTasks.GitHubClient.Repository.Release.Create(gitHubOwner, gitHubName, newRelease);
@@ -43,18 +41,5 @@ sealed partial class Build
             await GitHubTasks.GitHubClient.Repository.Release.UploadAsset(createdRelease, releaseAssetUpload);
             Log.Information("Artifact: {Path}", file);
         }
-    }
-
-    void WriteCompareUrl(StringBuilder changelog)
-    {
-        var tags = GitTasks
-            .Git("tag --list", logInvocation: false, logOutput: false)
-            .ToArray();
-
-        if (tags.Length < 2) return;
-
-        if (changelog[^1] != '\r' || changelog[^1] != '\n') changelog.AppendLine(Environment.NewLine);
-        changelog.Append("Full changelog: ");
-        changelog.Append(GitRepository.GetGitHubCompareTagsUrl(tags[^1].Text, tags[^2].Text));
     }
 }

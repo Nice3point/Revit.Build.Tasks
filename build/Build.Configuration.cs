@@ -2,8 +2,8 @@
 
 sealed partial class Build
 {
-    string Version => GitHubActions.Instance.RefName;
-    
+    [Parameter] [Required] string ReleaseVersion = GitHubActions.Instance?.RefName;
+
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "output";
     readonly AbsolutePath ChangeLogPath = RootDirectory / "Changelog.md";
 }

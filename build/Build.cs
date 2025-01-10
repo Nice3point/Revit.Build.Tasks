@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
 
+[PublicAPI]
 sealed partial class Build : NukeBuild
 {
     [GitRepository] readonly GitRepository GitRepository;

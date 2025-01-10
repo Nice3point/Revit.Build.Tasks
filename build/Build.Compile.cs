@@ -9,7 +9,6 @@ sealed partial class Build
         {
             DotNetBuild(settings => settings
                 .SetConfiguration("Release")
-                .SetOutputDirectory(ArtifactsDirectory)
                 .SetVerbosity(DotNetVerbosity.minimal));
         });
 }

@@ -9,7 +9,7 @@ sealed partial class Build
         {
             DotNetPack(settings => settings
                 .SetConfiguration("Release")
-                .SetVersion(Version)
+                .SetVersion(ReleaseVersion)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetVerbosity(DotNetVerbosity.minimal)
                 .SetPackageReleaseNotes(CreateNugetChangelog()));
