@@ -1,7 +1,8 @@
-# 3.0.0-preview.1.3
+# 3.0.0-preview.1.4
 
 - Property `PublishAddinFiles` renamed to `PublishRevitAddin`.
 - Added new property `PublishRevitFiles`, to publish files to the `bin/publish` folder.
+- Disabled `EnableDynamicLoading` property by default
 
 # 2.0.2
 
