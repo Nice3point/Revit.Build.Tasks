@@ -21,10 +21,6 @@
         <EnableDynamicLoading>true</EnableDynamicLoading>
     </PropertyGroup>
 
-    <PropertyGroup Condition="!$(DefineConstants.Contains('NETCOREAPP'))">
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
-
     <PropertyGroup>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
