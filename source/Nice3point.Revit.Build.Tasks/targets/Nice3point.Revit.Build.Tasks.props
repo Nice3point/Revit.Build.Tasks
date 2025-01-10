@@ -1,5 +1,3 @@
-<!-- This file contains a list of the Revit versions that are supported by this SDK -->
-
 <Project>
 
     <ImportGroup>
@@ -16,13 +14,5 @@
 
     <UsingTask TaskName="$(MSBuildThisFileName).AddImplicitUsings" AssemblyFile="$(BuildTasksAssembly)"/>
     <UsingTask TaskName="$(MSBuildThisFileName).GenerateRevitCompatibleDefineConstants" AssemblyFile="$(BuildTasksAssembly)"/>
-
-    <PropertyGroup Condition="$(DefineConstants.Contains('NETCOREAPP'))">
-        <EnableDynamicLoading>true</EnableDynamicLoading>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    </PropertyGroup>
 
 </Project>
