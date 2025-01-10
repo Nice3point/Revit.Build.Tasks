@@ -9,7 +9,6 @@
     -->
 
     <PropertyGroup>
-        <EnableDynamicLoading>true</EnableDynamicLoading>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
