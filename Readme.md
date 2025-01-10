@@ -124,7 +124,7 @@ If it is not specified, the files will be copied to the root folder.
 Result:
 
 ```text
-📂bin\publish ; %AppData%\Autodesk\Revit\Addins\2025
+📂bin\publish; %AppData%\Autodesk\Revit\Addins\2025
  ┣📜RevitAddIn.addin
  ┗📂RevitAddIn
    ┣📂Families
