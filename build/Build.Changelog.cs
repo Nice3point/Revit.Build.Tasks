@@ -27,7 +27,6 @@ sealed partial class Build
         return changelog.ToString();
     }
 
-
     void WriteCompareUrl(StringBuilder changelog)
     {
         var tags = GitTasks
