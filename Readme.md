@@ -2,7 +2,7 @@
 
 [![Nuget](https://img.shields.io/nuget/vpre/Nice3point.Revit.Build.Tasks?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks)
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Build.Tasks?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks)
-[![Last Commit](https://img.shields.io/github/last-commit/Nice3point/Revit.Build.Tasks/develop?style=for-the-badge)](https://github.com/Nice3point/Revit.Build.Tasks/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/Nice3point/Revit.Build.Tasks/develop?style=for-the-badge)](https://github.com/Nice3point/Revit.Build.Tasks/commits/develop)
 
 This repository contains the MSBuild tasks for developing and publishing the plugin for multiple Revit versions.
 
