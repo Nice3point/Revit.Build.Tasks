@@ -10,8 +10,8 @@
 
     <PropertyGroup>
         <PublishRevitAddin Condition="'$(PublishRevitAddin)' == ''">false</PublishRevitAddin>
-        <PublishRevitFiles Condition="'$(PublishRevitFiles)' == ''">false</PublishRevitFiles>
         <PublishRevitFiles Condition="'$(PublishRevitFiles)' == '' AND $(PublishRevitAddin) == 'true'">true</PublishRevitFiles>
+        <PublishRevitFiles Condition="'$(PublishRevitFiles)' == ''">false</PublishRevitFiles>
     </PropertyGroup>
 
     <Target Name="_PublishRevitFiles"
