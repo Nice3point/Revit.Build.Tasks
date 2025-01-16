@@ -4,30 +4,38 @@ using Nuke.Common.Tools.GitHub;
 
 sealed partial class Build
 {
-    string CreateNugetChangelog()
+    StringBuilder CreateChangelogBuilder()
     {
         Assert.True(File.Exists(ChangeLogPath), $"Unable to locate the changelog file: {ChangeLogPath}");
         Log.Information("Changelog: {Path}", ChangeLogPath);
 
         var changelog = BuildChangelog();
         Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {ReleaseVersion}");
+        return changelog;
+    }
 
-        return EscapeMsBuild(changelog.ToString());
+    string CreateNugetChangelog()
+    {
+        var builder = CreateChangelogBuilder();
+
+        return builder.ToString()
+            .Replace(";", "%3B")
+            .Replace("- ", "• ")
+            .Replace("* ", "• ")
+            .Replace("+ ", "• ")
+            .Replace("`", string.Empty)
+            .Replace(",", "%2C");
     }
 
     string CreateGithubChangelog()
     {
-        Assert.True(File.Exists(ChangeLogPath), $"Unable to locate the changelog file: {ChangeLogPath}");
-        Log.Information("Changelog: {Path}", ChangeLogPath);
+        var builder = CreateChangelogBuilder();
 
-        var changelog = BuildChangelog();
-        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {ReleaseVersion}");
-
-        WriteCompareUrl(changelog);
-        return changelog.ToString();
+        WriteGitHubCompareUrl(builder);
+        return builder.ToString();
     }
 
-    void WriteCompareUrl(StringBuilder changelog)
+    void WriteGitHubCompareUrl(StringBuilder changelog)
     {
         var tags = GitTasks
             .Git("tag --list", logInvocation: false, logOutput: false)
@@ -79,12 +87,5 @@ sealed partial class Build
         {
             builder.Remove(0, 1);
         }
-    }
-
-    static string EscapeMsBuild(string value)
-    {
-        return value
-            .Replace(";", "%3B")
-            .Replace(",", "%2C");
     }
 }
