@@ -8,6 +8,10 @@
     ============================================================
     -->
 
+    <PropertyGroup>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(Configuration)' != 'Debug' AND $(Configuration.Contains('Debug'))">
         <DebugSymbols>true</DebugSymbols>
         <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
@@ -15,7 +19,7 @@
 
     <PropertyGroup Condition="'$(Configuration)' != 'Release' AND $(Configuration.Contains('Release'))">
         <Optimize>true</Optimize>
-        <DebugType>none</DebugType>
+        <DebugType>portable</DebugType>
         <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     </PropertyGroup>
 
