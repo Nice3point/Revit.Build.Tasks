@@ -1,8 +1,8 @@
-# 3.0.0-preview.1.5
+# 3.0.0-preview.2.0
 
-- Property `PublishAddinFiles` renamed to `PublishRevitAddin`.
-- Added new property `PublishRevitFiles`, to publish files to the `bin/publish` folder.
-- Disabled `EnableDynamicLoading` property by default
+- Property `PublishAddinFiles` renamed to `DeployRevitAddinLocally`.
+- Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
+- Removed `EnableDynamicLoading` property. Enable for the project manually
 
 # 2.0.2
 
@@ -14,7 +14,6 @@
 - Disabled CopyLocalLockFileAssemblies for NetCore apps
 
 # 2.0.0
-
 
 - Disabled publishing Content files by default. To enable it, set `CopyToPublishDirectory=‘Always’` or `CopyToPublishDirectory=‘PreserveNewest’`.
 - PreserveNewest and Always now affect whether existing files should be skipped or overwritten always
