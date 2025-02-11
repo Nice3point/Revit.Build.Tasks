@@ -23,8 +23,11 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### OR_GREATER preprocessor symbols
 
-Included a target for generating the Define Constants needed to support code for multiple Revit versions.
-`OR_GREATER` variants are accumulative in nature and provide a simpler way to write compilation conditions.
+Preprocessor symbols (`#define` constants) are used in conditional compilation to enable or exclude code based on the target Revit version.
+This ensures compatibility across multiple Revit versions without code duplication.
+
+The `OR_GREATER` symbols are cumulative and provide a cleaner way to handle version-specific API changes.
+Each symbol indicates compatibility with the specified version and all newer versions.
 
 | Current configuration | Project configurations               | Generated define constants                                                  |
 |-----------------------|:-------------------------------------|-----------------------------------------------------------------------------|
@@ -58,7 +61,7 @@ Constants are generated from the names of project configurations. If your projec
 </PropertyGroup>
 ```
 
-**To disable preprocessor symbols, set:**
+To disable implicit defines, set the `DisableImplicitRevitDefines` property:
 
 ```xml
 <PropertyGroup>
@@ -68,13 +71,30 @@ Constants are generated from the names of project configurations. If your projec
 
 ### Publishing
 
-Included a target for copying Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project.
+Depending on your workflow, you can either deploy the files locally for immediate testing and debugging or publish them into a folder for further distribution.
 
-`Clean solution` or `Clean project` will delete the published files.
+#### Local Deployment
+
+To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddinLocally` property.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
-Should only be enabled in projects containing the Revit manifest file (`.addin`). 
+```xml
+<PropertyGroup>
+    <DeployRevitAddinLocally>true</DeployRevitAddinLocally>
+</PropertyGroup>
+```
+
+_Default: Disabled_
+
+Should only be enabled in projects containing the Revit manifest file (`.addin`).
+
+`Clean solution` or `Clean project` commands will delete the deployed files.
+
+#### Publishing for distribution
+
+If your goal is to generate an installer or a bundle, enable the `PublishRevitAddin` property.
+This configuration publishes the compiled files into the `bin\publish` folder.
 
 ```xml
 <PropertyGroup>
@@ -82,19 +102,9 @@ Should only be enabled in projects containing the Revit manifest file (`.addin`)
 </PropertyGroup>
 ```
 
-**PublishRevitAddin disabled by default.**
+_Default: Disabled_
 
-If you need to create an installer or a bundle but don't want to publish files to the `%AppData%\Autodesk\Revit\Addins` directory, use the **PublishRevitFiles** property instead:
-
-```xml
-<PropertyGroup>
-    <PublishRevitFiles>true</PublishRevitFiles>
-</PropertyGroup>
-```
-
-Filed will be published to the `bin\publish` folder.
-
-**PublishRevitFiles disabled by default.**
+#### Publish extra content
 
 By default, all project files and dependencies required for the plugin to run, including the `.addin` manifest, are copied.
 If you need to include additional files, such as configuration or family files, include them in the `Content` item.
@@ -141,11 +151,9 @@ Result:
    ┗📜Readme.md
 ```
 
-
-
 ### Implicit global usings
 
-Included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
+By default, included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
 
 | Global Using                                | Enabled by reference            |
 |---------------------------------------------|---------------------------------|
@@ -156,28 +164,12 @@ Included a target for generating implicit global Usings depending on the project
 | using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
 | using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-**To disable it, set:**
+To disable implicit usings, set the `DisableImplicitRevitUsings` property:
 
 ```xml
 <PropertyGroup>
     <DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>
     <!--OR-->
     <ImplicitUsings>false</ImplicitUsings>
-</PropertyGroup>
-```
-
-## MSBuild Properties
-
-By default, some properties that are optimal for publishing an application are overriden:
-
-| Property                          | Default value | Description                                                                                      |
-|-----------------------------------|---------------|--------------------------------------------------------------------------------------------------|
-| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application      |
-
-These properties are automatically applied to the `.csproj` file by default and can be overriden:
-
-```xml
-<PropertyGroup>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 </PropertyGroup>
 ```
