@@ -7,6 +7,6 @@
 
     protected override void OnBuildInitialized()
     {
-        ReleaseVersion = GitRepository.Tags.SingleOrDefault();
+        ReleaseVersion ??= GitRepository.Tags.SingleOrDefault();
     }
 }
