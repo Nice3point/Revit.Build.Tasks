@@ -173,3 +173,20 @@ To disable implicit usings, set the `DisableImplicitRevitUsings` property:
     <ImplicitUsings>false</ImplicitUsings>
 </PropertyGroup>
 ```
+
+## MSBuild Properties
+
+This package overrides some properties for the optimal add-in development:
+
+| Property                          | Default value | Description                                                                                 |
+|-----------------------------------|---------------|---------------------------------------------------------------------------------------------|
+| AppendTargetFrameworkToOutputPath | false         | Prevents the TFM from being appended to the output path. Required to publish an application |
+
+These properties are automatically applied to the `.csproj` file, but can be overriden:
+
+```xml
+
+<PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+```
