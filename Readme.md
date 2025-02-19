@@ -11,7 +11,7 @@ This repository contains the MSBuild tasks for developing and publishing the plu
 You can install Tasks as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Build.Tasks).
 
 ```text
-<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="2.*"/>
+<PackageReference Include="Nice3point.Revit.Build.Tasks" Version="3.*"/>
 ```
 
 How to use this package? Just add it to your add-in, and this package will setup the project for simplified maintenance and development.
@@ -75,13 +75,13 @@ Depending on your workflow, you can either deploy the files locally for immediat
 
 #### Local Deployment
 
-To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddinLocally` property.
+To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
 ```xml
 <PropertyGroup>
-    <DeployRevitAddinLocally>true</DeployRevitAddinLocally>
+    <DeployRevitAddin>true</DeployRevitAddin>
 </PropertyGroup>
 ```
 
