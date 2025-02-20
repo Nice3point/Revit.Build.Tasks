@@ -1,4 +1,4 @@
-# 3.0.0-preview.2.2
+# 3.0.0-preview.3.0
 
 - Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
 - Added new target `RepackAddinFiles`, to repack the addin files.
