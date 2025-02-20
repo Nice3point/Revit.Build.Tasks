@@ -151,6 +151,36 @@ Result:
    ┗📜Readme.md
 ```
 
+### Assembly Repacking
+
+Assembly repacking is used to merge multiple assemblies into a single Dll, primarily to avoid dependency conflicts between different add-ins.
+
+If you need to repack assemblies into a single Dll, enable the `IsRepackable` property.
+[ILRepack](https://www.nuget.org/packages/ILRepack/) package is required.
+
+```xml
+
+<PropertyGroup>
+    <IsRepackable>true</IsRepackable>
+</PropertyGroup>
+```
+
+_Default: false_
+
+To exclude certain assemblies from repacking if they cause unexpected behavior, specify them using the `RepackBinariesExcudes` property:
+
+```xml
+
+<PropertyGroup>
+    <RepackBinariesExcudes>$(AssemblyName).UI.dll;System*.dll</RepackBinariesExcudes>
+</PropertyGroup>
+```
+
+Wildcards are supported.
+All binaries are repacked into the **bin** directory after the build.
+
+For .NET Core applications, it is recommended to disable this feature and use **Dependency Isolation**, which is available starting from Revit 2026.
+
 ### Implicit global usings
 
 By default, included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
