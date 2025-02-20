@@ -20,13 +20,13 @@
 
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
-            <AddinItem Include="$(TargetDir)**\*" Exclude="**\publish\**\*"/>
+            <AddinItem Include="$(TargetDir)**\*" Exclude="**\$(PublishDirName)\**\*"/>
             <_ResolvedFileToPublishAlways Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'Always'"/>
             <_ResolvedFileToPublishPreserveNewest Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'PreserveNewest'"/>
         </ItemGroup>
 
         <PropertyGroup>
-            <RootDir>$(TargetDir)publish\Revit $(RevitVersion) $(Configuration) addin\</RootDir>
+            <RootDir>$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\</RootDir>
             <AddinDir>$(RootDir)$(AssemblyName)\</AddinDir>
         </PropertyGroup>
 
@@ -49,7 +49,7 @@
             Condition="$(DeployRevitAddin)">
 
         <ItemGroup>
-            <AddinFiles Include="$(TargetDir)publish\Revit $(RevitVersion) $(Configuration) addin\**\*"/>
+            <AddinFiles Include="$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\**\*"/>
         </ItemGroup>
 
         <Copy SourceFiles="@(AddinFiles)"
@@ -70,7 +70,7 @@
             AfterTargets="Clean"
             Condition="$(PublishRevitAddin) == 'true'">
 
-        <RemoveDir Directories="$(TargetDir)publish\"/>
+        <RemoveDir Directories="$(PublishDir)"/>
     </Target>
 
 </Project>
