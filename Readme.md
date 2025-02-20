@@ -167,12 +167,12 @@ If you need to repack assemblies into a single Dll, enable the `IsRepackable` pr
 
 _Default: false_
 
-To exclude certain assemblies from repacking if they cause unexpected behavior, specify them using the `RepackBinariesExcudes` property:
+To exclude certain assemblies from repacking if they cause unexpected behavior, specify them using the `RepackBinariesExcludes` property:
 
 ```xml
 
 <PropertyGroup>
-    <RepackBinariesExcudes>$(AssemblyName).UI.dll;System*.dll</RepackBinariesExcudes>
+    <RepackBinariesExcludes>$(AssemblyName).UI.dll;System*.dll</RepackBinariesExcludes>
 </PropertyGroup>
 ```
 

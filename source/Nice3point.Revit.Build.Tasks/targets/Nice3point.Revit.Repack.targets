@@ -24,7 +24,7 @@
         <Error Condition="'@(ILRepackVersion->Count())' == '0'" Text="ILRepack is required but not installed. The IsRepackable property is set to true, indicating that ILRepack should be used. Ensure that ILRepack is referenced in your project. To resolve this, add a PackageReference to ILRepack in your project file. If repacking is not needed, unset the IsRepackable property."/>
 
         <ItemGroup>
-            <ILRepackInputNamesExcludes Include="$(RepackBinariesExcudes.Split(';'))"/>
+            <ILRepackInputNamesExcludes Include="$(RepackBinariesExcludes.Split(';'))"/>
             <ILRepackInputAssembliesExcludes Include="$(OutputPath)%(ILRepackInputNamesExcludes.Identity)"/>
         </ItemGroup>
 
