@@ -1,7 +1,9 @@
-# 3.0.0-preview.2.1
+# 3.0.0-preview.2.2
 
-- Property `PublishAddinFiles` renamed to `DeployRevitAddin`.
 - Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
+- Added new target `RepackAddinFiles`, to repack the addin files.
+- Added new property `IsRepackable`, to enable repacking.
+- Property `PublishAddinFiles` renamed to `DeployRevitAddin`.
 - Switched `DebugType` property for `Release` configuration to `portable`.
 - Removed `EnableDynamicLoading` property. Enable for the project manually
 
