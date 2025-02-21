@@ -23,17 +23,15 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 <!-- TOC -->
 * [MSBuild Targets](#msbuild-targets)
-    * [OR_GREATER preprocessor symbols](#or_greater-preprocessor-symbols)
+    * [Preprocessor symbols](#preprocessor-symbols)
     * [Publishing](#publishing)
         * [Local deployment](#local-deployment)
         * [Publishing for distribution](#publishing-for-distribution)
         * [Publish extra content](#publish-extra-content)
     * [Assembly repacking](#assembly-repacking)
-    * [Patching manifest](#patching-manifest)
+    * [Manifest patching](#manifest-patching)
     * [Implicit global usings](#implicit-global-usings)
 * [MSBuild Properties](#msbuild-properties)
-<!-- TOC -->
-
 ## MSBuild Targets
 
 ### Preprocessor symbols
