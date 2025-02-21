@@ -44,6 +44,8 @@ public class PatchManifest : Task
         var manifestSettings = xmlDocument.Root?.Elements("ManifestSettings").FirstOrDefault();
         if (manifestSettings is null) return;
 
+        Log.LogMessage(MessageImportance.High, "Patching manifest: removing 'ManifestSettings'");
+
         manifestSettings.Remove();
         xmlDocument.Save(manifestPath);
     }

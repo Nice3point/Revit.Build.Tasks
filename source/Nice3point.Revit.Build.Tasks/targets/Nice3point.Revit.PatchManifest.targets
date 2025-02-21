@@ -9,11 +9,11 @@
     -->
 
     <Target Name="PatchManifest"
-            AfterTargets="Build"
-            BeforeTargets="PublishRevitAddinFiles">
+            AfterTargets="PublishRevitAddinFiles"
+            BeforeTargets="DeployRevitAddinFiles">
 
         <ItemGroup>
-            <ManifestItem Include="$(OutputDir)*.addin"/>
+            <ManifestItem Include="$(PublishDir)*\*.addin"/>
         </ItemGroup>
 
         <PatchManifest
