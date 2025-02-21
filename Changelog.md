@@ -1,6 +1,7 @@
-# 3.0.0-preview.3.0
+# 3.0.0-preview.4.0
 
 - Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
+- Added new target `PatchManifest`, to patch the Revit .addin manifest, for backwards compatibility
 - Added new target `RepackAddinFiles`, to repack the addin files.
 - Added new property `IsRepackable`, to enable repacking.
 - Property `PublishAddinFiles` renamed to `DeployRevitAddin`.
