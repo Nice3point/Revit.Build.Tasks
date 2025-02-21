@@ -13,6 +13,7 @@
     </PropertyGroup>
 
     <UsingTask TaskName="$(MSBuildThisFileName).AddImplicitUsings" AssemblyFile="$(BuildTasksAssembly)"/>
-    <UsingTask TaskName="$(MSBuildThisFileName).GenerateRevitCompatibleDefineConstants" AssemblyFile="$(BuildTasksAssembly)"/>
+    <UsingTask TaskName="$(MSBuildThisFileName).GenerateCompatibleDefineConstants" AssemblyFile="$(BuildTasksAssembly)"/>
+    <UsingTask TaskName="$(MSBuildThisFileName).PatchManifest" AssemblyFile="$(BuildTasksAssembly)"/>
 
 </Project>

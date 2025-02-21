@@ -13,7 +13,7 @@
             BeforeTargets="PublishRevitAddinFiles">
 
         <ItemGroup>
-            <ManifestItem Include="$(ProjectDir)*.addin"/>
+            <ManifestItem Include="$(OutputDir)*.addin"/>
         </ItemGroup>
 
         <PatchManifest
