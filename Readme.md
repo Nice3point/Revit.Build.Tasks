@@ -19,6 +19,21 @@ About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/c
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
+<!-- TOC -->
+
+* [MSBuild Targets](#msbuild-targets)
+    * [OR_GREATER preprocessor symbols](#or_greater-preprocessor-symbols)
+    * [Publishing](#publishing)
+        * [Local deployment](#local-deployment)
+        * [Publishing for distribution](#publishing-for-distribution)
+        * [Publish extra content](#publish-extra-content)
+    * [Assembly repacking](#assembly-repacking)
+    * [Patching manifest](#patching-manifest)
+    * [Implicit global usings](#implicit-global-usings)
+* [MSBuild Properties](#msbuild-properties)
+
+<!-- TOC -->
+
 ## MSBuild Targets
 
 ### OR_GREATER preprocessor symbols
@@ -73,7 +88,7 @@ To disable implicit defines, set the `DisableImplicitRevitDefines` property:
 
 Depending on your workflow, you can either deploy the files locally for immediate testing and debugging or publish them into a folder for further distribution.
 
-#### Local Deployment
+#### Local deployment
 
 To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
 
@@ -151,7 +166,7 @@ Result:
    ┗📜Readme.md
 ```
 
-### Assembly Repacking
+### Assembly repacking
 
 Assembly repacking is used to merge multiple assemblies into a single Dll, primarily to avoid dependency conflicts between different add-ins.
 
@@ -180,6 +195,39 @@ Wildcards are supported.
 All binaries are repacked into the **bin** directory after the build.
 
 For .NET Core applications, it is recommended to disable this feature and use **Dependency Isolation**, which is available starting from Revit 2026.
+
+### Patching manifest
+
+By default, enabled target is used to modify the Revit `.addin` manifest to ensure backward compatibility between different Revit versions.
+
+For example, if the manifest includes nodes or properties, which is only supported in newest Revit version, it will be removed for older versions:
+
+**Original .addin manifest:**
+
+```xml
+
+<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>RevitAddin</Name>
+        <Assembly>RevitAddin\RevitAddin.dll</Assembly>
+    </AddIn>
+    <ManifestSettings>
+        <UseRevitContext>False</UseRevitContext>
+    </ManifestSettings>
+</RevitAddIns>
+```
+
+**Patched `.addin` manifest for Revit 2025 and older:**
+
+```xml
+
+<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>RevitAddin</Name>
+        <Assembly>RevitAddin\RevitAddin.dll</Assembly>
+    </AddIn>
+</RevitAddIns>
+```
 
 ### Implicit global usings
 
