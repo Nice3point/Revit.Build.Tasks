@@ -174,7 +174,6 @@ If you need to repack assemblies into a single Dll, enable the `IsRepackable` pr
 [ILRepack](https://www.nuget.org/packages/ILRepack/) package is required.
 
 ```xml
-
 <PropertyGroup>
     <IsRepackable>true</IsRepackable>
 </PropertyGroup>
@@ -185,7 +184,6 @@ _Default: false_
 To exclude certain assemblies from repacking if they cause unexpected behavior, specify them using the `RepackBinariesExcludes` property:
 
 ```xml
-
 <PropertyGroup>
     <RepackBinariesExcludes>$(AssemblyName).UI.dll;System*.dll</RepackBinariesExcludes>
 </PropertyGroup>
@@ -205,7 +203,6 @@ For example, if the manifest includes nodes or properties, which is only support
 **Original .addin manifest:**
 
 ```xml
-
 <RevitAddIns>
     <AddIn Type="Application">
         <Name>RevitAddin</Name>
@@ -220,7 +217,6 @@ For example, if the manifest includes nodes or properties, which is only support
 **Patched `.addin` manifest for Revit 2025 and older:**
 
 ```xml
-
 <RevitAddIns>
     <AddIn Type="Application">
         <Name>RevitAddin</Name>
@@ -263,7 +259,6 @@ This package overrides some properties for the optimal add-in development:
 These properties are automatically applied to the `.csproj` file, but can be overriden:
 
 ```xml
-
 <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 </PropertyGroup>
