@@ -200,7 +200,7 @@ By default, enabled target is used to modify the Revit `.addin` manifest to ensu
 
 For example, if the manifest includes nodes or properties, which is only supported in newest Revit version, it will be removed for older versions:
 
-**Original .addin manifest:**
+**Original `.addin` manifest:**
 
 ```xml
 <RevitAddIns>
