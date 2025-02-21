@@ -225,6 +225,8 @@ For example, if the manifest includes nodes or properties, which is only support
 </RevitAddIns>
 ```
 
+Target is triggered automatically if the `PublishRevitAddin` property is enabled.
+
 ### Implicit global usings
 
 By default, included a target for generating implicit global Usings depending on the project references. Helps to reduce the frequent use of `using` in a project.
