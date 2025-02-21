@@ -36,7 +36,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ## MSBuild Targets
 
-### OR_GREATER preprocessor symbols
+### Preprocessor symbols
 
 Preprocessor symbols (`#define` constants) are used in conditional compilation to enable or exclude code based on the target Revit version.
 This ensures compatibility across multiple Revit versions without code duplication.
@@ -194,7 +194,7 @@ All binaries are repacked into the **bin** directory after the build.
 
 For .NET Core applications, it is recommended to disable this feature and use **Dependency Isolation**, which is available starting from Revit 2026.
 
-### Patching manifest
+### Manifest patching
 
 By default, enabled target is used to modify the Revit `.addin` manifest to ensure backward compatibility between different Revit versions.
 
