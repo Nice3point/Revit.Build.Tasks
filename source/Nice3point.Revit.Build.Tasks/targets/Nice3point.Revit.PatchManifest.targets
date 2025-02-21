@@ -18,7 +18,7 @@
 
         <PatchManifest
                 RevitVersion="$(RevitVersion)"
-                Manifests="$(ManifestItem)">
+                Manifests="@(ManifestItem)">
         </PatchManifest>
     </Target>
 

@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Build.Framework;
@@ -16,12 +15,11 @@ public class PatchManifest : Task
     {
         try
         {
-            if (int.TryParse(RevitVersion, out var targetVersion)) return true;
+            if (!int.TryParse(RevitVersion, out var targetVersion)) return true;
 
             foreach (var manifest in Manifests)
             {
-                var path = manifest.ItemSpec;
-                if (!File.Exists(path)) continue;
+                var path = manifest.GetMetadata("FullPath");
 
                 PatchManifestSettings(path, targetVersion);
             }
@@ -44,7 +42,7 @@ public class PatchManifest : Task
         var manifestSettings = xmlDocument.Root?.Elements("ManifestSettings").FirstOrDefault();
         if (manifestSettings is null) return;
 
-        Log.LogMessage(MessageImportance.High, "Patching manifest: removing 'ManifestSettings'");
+        Log.LogMessage(MessageImportance.High, "Patching addin manifest: removing 'ManifestSettings'");
 
         manifestSettings.Remove();
         xmlDocument.Save(manifestPath);

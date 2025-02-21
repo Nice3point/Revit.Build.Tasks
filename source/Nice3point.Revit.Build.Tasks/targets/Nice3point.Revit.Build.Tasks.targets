@@ -3,6 +3,7 @@
     <ImportGroup>
         <Import Project="Nice3point.Revit.Repack.targets"/>
         <Import Project="Nice3point.Revit.Publish.targets" />
+        <Import Project="Nice3point.Revit.PatchManifest.targets"/>
         <Import Project="Nice3point.Revit.ImplicitUsings.targets" />
         <Import Project="Nice3point.Revit.GenerateCompatibleDefineConstants.targets" />
     </ImportGroup>
