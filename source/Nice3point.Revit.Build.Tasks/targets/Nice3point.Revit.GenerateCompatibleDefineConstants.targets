@@ -12,13 +12,13 @@
             AfterTargets="AddImplicitDefineConstants"
             Condition="$(DisableImplicitRevitDefines) != 'true' ">
 
-        <GenerateRevitCompatibleDefineConstants
-                CurrentVersion="$(RevitVersion)"
+        <GenerateCompatibleDefineConstants
+                RevitVersion="$(RevitVersion)"
                 Configuration="$(Configuration)"
                 Configurations="$(Configurations)">
             <Output TaskParameter="DefineConstants"
                     ItemName="_ImplicitRevitDefineConstant"/>
-        </GenerateRevitCompatibleDefineConstants>
+        </GenerateCompatibleDefineConstants>
 
         <PropertyGroup>
             <DefineConstants Condition=" '@(_ImplicitRevitDefineConstant)' != '' " >$(DefineConstants);@(_ImplicitRevitDefineConstant)</DefineConstants>

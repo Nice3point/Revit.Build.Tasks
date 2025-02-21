@@ -8,10 +8,9 @@ namespace Nice3point.Revit.Build.Tasks;
 
 public class AddImplicitUsings : Task
 {
-    [Required] public ITaskItem[] AdditionalUsings { get; set; }
-    [Required] public ITaskItem[] References { get; set; }
-
-    [Output] public string[] Usings { get; private set; }
+    [Required] public required ITaskItem[] AdditionalUsings { get; set; }
+    [Required] public required ITaskItem[] References { get; set; }
+    [Output] public string[]? Usings { get; private set; }
 
     public override bool Execute()
     {

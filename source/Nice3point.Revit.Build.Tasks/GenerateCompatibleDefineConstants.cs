@@ -6,30 +6,29 @@ using Task = Microsoft.Build.Utilities.Task;
 
 namespace Nice3point.Revit.Build.Tasks;
 
-public class GenerateRevitCompatibleDefineConstants : Task
+public class GenerateCompatibleDefineConstants : Task
 {
-    [Required] public string Configuration { get; set; }
-    [Required] public string[] Configurations { get; set; }
-    public string CurrentVersion { get; set; }
-
-    [Output] public string[] DefineConstants { get; private set; }
+    [Required] public required string Configuration { get; set; }
+    [Required] public required string[] Configurations { get; set; }
+    public string? RevitVersion { get; set; }
+    [Output] public string[]? DefineConstants { get; private set; }
 
     public override bool Execute()
     {
         try
         {
             int currentVersion;
-            if (string.IsNullOrEmpty(CurrentVersion))
+            if (string.IsNullOrEmpty(RevitVersion))
             {
                 if (!TryGetRevitVersion(Configuration, out currentVersion)) return true;
             }
             else
             {
-                if (!int.TryParse(CurrentVersion, out currentVersion)) return true;
+                if (!int.TryParse(RevitVersion, out currentVersion)) return true;
             }
 
             var constants = new List<string>();
-            
+
             AddVersionConstants(constants, currentVersion);
             AddGreaterConstants(currentVersion, constants);
 
@@ -38,7 +37,7 @@ public class GenerateRevitCompatibleDefineConstants : Task
                 .Distinct()
                 .OrderBy(constant => constant)
                 .ToArray();
-            
+
             return true;
         }
         catch (Exception exception)
@@ -63,7 +62,7 @@ public class GenerateRevitCompatibleDefineConstants : Task
             constants.Add($"REVIT{version}_OR_GREATER");
         }
     }
-    
+
     private static bool TryGetRevitVersion(string configuration, out int version)
     {
         version = 0;
