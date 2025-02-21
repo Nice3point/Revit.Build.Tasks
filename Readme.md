@@ -19,8 +19,9 @@ About [MSBuild targets](https://learn.microsoft.com/en-us/visualstudio/msbuild/c
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
-<!-- TOC -->
+## Table of contents
 
+<!-- TOC -->
 * [MSBuild Targets](#msbuild-targets)
     * [OR_GREATER preprocessor symbols](#or_greater-preprocessor-symbols)
     * [Publishing](#publishing)
@@ -31,7 +32,6 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
     * [Patching manifest](#patching-manifest)
     * [Implicit global usings](#implicit-global-usings)
 * [MSBuild Properties](#msbuild-properties)
-
 <!-- TOC -->
 
 ## MSBuild Targets
