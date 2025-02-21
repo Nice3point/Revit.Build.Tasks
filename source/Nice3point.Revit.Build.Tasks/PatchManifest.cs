@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Build.Framework;
@@ -42,7 +43,7 @@ public class PatchManifest : Task
         var manifestSettings = xmlDocument.Root?.Elements("ManifestSettings").FirstOrDefault();
         if (manifestSettings is null) return;
 
-        Log.LogMessage(MessageImportance.High, "Patching addin manifest: removing 'ManifestSettings'");
+        Log.LogMessage(MessageImportance.High, $"Patching {Path.GetFileName(manifestPath)}: removing 'ManifestSettings'");
 
         manifestSettings.Remove();
         xmlDocument.Save(manifestPath);
