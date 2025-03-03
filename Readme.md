@@ -74,7 +74,7 @@ Constants are generated from the names of project configurations. If your projec
 </PropertyGroup>
 ```
 
-To disable implicit defines, set the `DisableImplicitRevitDefines` property:
+Preprocessor symbols generating is enabled by default, to disable implicit defines, set the `DisableImplicitRevitDefines` property:
 
 ```xml
 <PropertyGroup>
