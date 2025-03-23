@@ -10,7 +10,7 @@
 
     <Target Name="GenerateRevitGlobalUsings"
             AfterTargets="ResolveLockFileReferences"
-            Condition="$(DisableImplicitRevitUsings) != 'true' AND ('$(ImplicitUsings)' == 'true' or '$(ImplicitUsings)' == 'enable')">
+            Condition="$(ImplicitRevitUsings) == 'true' AND ('$(ImplicitUsings)' == 'true' or '$(ImplicitUsings)' == 'enable')">
 
         <ItemGroup>
             <_ImplicitRevitUsing Include="Autodesk.Revit.DB" RequiredReference="RevitAPI.dll"/>
