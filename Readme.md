@@ -238,11 +238,11 @@ By default, included a target for generating implicit global Usings depending on
 | using CommunityToolkit.Mvvm.Input;          | CommunityToolkit.Mvvm.dll       |
 | using CommunityToolkit.Mvvm.ComponentModel; | CommunityToolkit.Mvvm.dll       |
 
-To disable implicit usings, set the `DisableImplicitRevitUsings` property:
+To disable implicit usings, set the `ImplicitRevitUsings` property:
 
 ```xml
 <PropertyGroup>
-    <DisableImplicitRevitUsings>true</DisableImplicitRevitUsings>
+    <ImplicitRevitUsings>false</ImplicitRevitUsings>
     <!--OR-->
     <ImplicitUsings>false</ImplicitUsings>
 </PropertyGroup>
