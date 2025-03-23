@@ -1,13 +1,20 @@
-# 3.0.0-preview.4.0
+# 3.0.0
 
 - Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
-- Added new property `IsRepackable`, to enable repacking.
-- Added new target `PatchManifest`, to patch the Revit .addin manifest, for backwards compatibility
-- Added new target `RepackAddinFiles`, to repack the addin files.
+- Added new property `DeployRevitAddin`, to deploy files to the `%AppData%\Autodesk\Revit\Addins` folder.
+- Added new property `IsRepackable`, to enable [repacking](https://github.com/gluck/il-repack) for avoiding dependency conflicts between different add-ins on the .NET framework.
+- Added new target `PatchManifest`, to patch the Revit `.addin` manifest, for backwards compatibility (enabled by default).
 - Property `PublishAddinFiles` renamed to `DeployRevitAddin`.
+- Property `DisableImplicitRevitUsings` renamed to `ImplicitRevitUsings`.
 - Switched `DebugType` property for `Release` configuration to `portable`.
-- Removed `EnableDynamicLoading` property. Enable for the project manually
-- Updated Readme and added new examples
+- Removed `EnableDynamicLoading` property. Enable for the project manually.
+- Updated Readme and added new examples.
+
+**Migration from v2 to v3:**
+
+- Replace the `PublishAddinFiles` property with `DeployRevitAddin` in the `.csproj` file.
+- Replace the `DisableImplicitRevitUsings` property with `ImplicitRevitUsings` in the `.csproj` file.
+- Add the `EnableDynamicLoading` property and set it to `true` in the `.csproj` file.
 
 # 2.0.2
 

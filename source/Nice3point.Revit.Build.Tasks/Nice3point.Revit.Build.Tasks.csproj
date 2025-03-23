@@ -24,7 +24,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.12.6" PrivateAssets="all" ExcludeAssets="Runtime" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.13.9" PrivateAssets="all" ExcludeAssets="Runtime" />
         <PackageReference Include="PolySharp" Version="1.15.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -32,9 +32,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\..\.nuget\PackageIcon.png" PackagePath="images\" Link="nuget\PackageIcon.png" Pack="true"/>
-        <None Include="..\..\License.md" PackagePath="" Link="nuget\License.md" Pack="true"/>
-        <None Include="..\..\Readme.md" PackagePath="" Link="nuget\Readme.md" Pack="true"/>
+        <None Include="..\..\.nuget\PackageIcon.png" PackagePath="images\" Pack="true" Visible="false"/>
+        <None Include="..\..\License.md" PackagePath="" Pack="true" Visible="false"/>
+        <None Include="..\..\Readme.md" PackagePath="" Pack="true" Visible="false"/>
         <Content Include="targets\**\*" PackagePath="build\" Pack="true"/>
     </ItemGroup>
 
