@@ -1,3 +1,7 @@
+# 3.0.1
+
+- Enable `ImplicitRevitUsings` by default
+
 # 3.0.0
 
 - Added new property `PublishRevitAddin`, to publish files to the `bin/publish` folder.
