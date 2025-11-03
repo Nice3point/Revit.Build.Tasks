@@ -9,6 +9,7 @@
     -->
 
     <PropertyGroup>
+        <ImplicitRevitUsings>true</ImplicitRevitUsings>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
