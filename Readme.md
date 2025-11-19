@@ -104,6 +104,29 @@ Should only be enabled in projects containing the Revit manifest file (`.addin`)
 
 `Clean solution` or `Clean project` commands will delete the deployed files.
 
+#### Versioned folder for local deployment
+
+By default, local deployment copies the add-in into a folder named after the assembly under
+`%AppData%\Autodesk\Revit\Addins\$(RevitVersion)` (for example, `RevitAddIn`).
+
+If you want the deployment folder name to include the assembly version (for example, `RevitAddIn_1.2.3`),
+enable the `AppendVersion` property. Optionally, you can also define a separator between the name and version
+with `VersionDelimiter`:
+
+```xml
+<PropertyGroup>
+    <DeployRevitAddin>true</DeployRevitAddin>
+    <AppendVersion>true</AppendVersion>
+    <VersionDelimiter>_</VersionDelimiter>
+</PropertyGroup>
+```
+
+When `AppendVersion` is enabled and `AssemblyVersion` is defined, the add-in will be deployed into a
+versioned folder, and the `.addin` manifest will be updated automatically to point to the versioned path.
+If `AppendVersion` is not set (or `AssemblyVersion` is missing), the non-versioned folder name is used as before.
+
+_Default: Disabled_
+
 #### Publishing for distribution
 
 If your goal is to generate an installer or a bundle, enable the `PublishRevitAddin` property.
