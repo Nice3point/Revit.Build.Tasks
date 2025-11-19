@@ -16,7 +16,7 @@
 
     <Target Name="PublishRevitAddinFiles"
             AfterTargets="CoreBuild"
-            Condition="$(PublishRevitAddin) == 'true' AND $(RevitVersion) != ''">
+            Condition="'$(PublishRevitAddin)' == 'true' AND '$(RevitVersion)' != ''">
 
         <ItemGroup>
             <RootItem Include="$(ProjectDir)*.addin"/>
@@ -46,7 +46,7 @@
 
     <Target Name="DeployRevitAddinFiles"
             AfterTargets="PublishRevitAddinFiles"
-            Condition="$(DeployRevitAddin)">
+            Condition="'$(DeployRevitAddin)' == 'true'">
 
         <ItemGroup>
             <AddinFiles Include="$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\**\*"/>
@@ -60,7 +60,7 @@
 
     <Target Name="CleanRevitAddinFolder"
             AfterTargets="Clean"
-            Condition="$(DeployRevitAddin)">
+            Condition="'$(DeployRevitAddin)' == 'true'">
 
         <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName)"/>
         <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName).addin"/>
@@ -68,7 +68,7 @@
 
     <Target Name="CleanPublishFolder"
             AfterTargets="Clean"
-            Condition="$(PublishRevitAddin) == 'true'">
+            Condition="'$(PublishRevitAddin)' == 'true'">
 
         <RemoveDir Directories="$(PublishDir)"/>
     </Target>
