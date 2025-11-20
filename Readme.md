@@ -88,7 +88,7 @@ Depending on your workflow, you can either deploy the files locally for immediat
 
 #### Local deployment
 
-To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
+To copy Revit add-in files to the default `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
@@ -103,6 +103,24 @@ _Default: Disabled_
 Should only be enabled in projects containing the Revit manifest file (`.addin`).
 
 `Clean solution` or `Clean project` commands will delete the deployed files.
+
+#### Local deployment location (ProgramData vs AppData)
+
+By default, local deployment copies the add-in files to `%AppData%\Autodesk\Revit\Addins\$(RevitVersion)`.
+
+If you prefer to deploy to `%ProgramData%\Autodesk\Revit\Addins\$(RevitVersion)`, enable the
+`DeployToProgramData` property alongside `DeployRevitAddin`:
+
+```xml
+<PropertyGroup>
+    <DeployRevitAddin>true</DeployRevitAddin>
+    <DeployToProgramData>true</DeployToProgramData>
+</PropertyGroup>
+```
+
+When `DeployToProgramData` is `false` or not set, the add-in continues to be deployed under `%AppData%`.
+
+_Default: Disabled_
 
 #### Versioned folder for local deployment
 
