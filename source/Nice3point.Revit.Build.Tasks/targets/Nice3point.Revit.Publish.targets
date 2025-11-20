@@ -31,7 +31,7 @@
             Condition="'$(PublishRevitAddin)' == 'true' AND '$(RevitVersion)' != ''">
 
         <ItemGroup>
-			<RootItem Include="$(ProjectDir)$(AddinManifestFileName)"/>
+			<RootItem Include="$(ProjectDir)**\$(AddinManifestFileName)"/>
             <AddinItem Include="$(TargetDir)**\*" Exclude="**\$(PublishDirName)\**\*"/>
             <_ResolvedFileToPublishAlways Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'Always'"/>
             <_ResolvedFileToPublishPreserveNewest Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'PreserveNewest'"/>
