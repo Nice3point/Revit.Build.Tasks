@@ -88,7 +88,7 @@ Depending on your workflow, you can either deploy the files locally for immediat
 
 #### Local deployment
 
-To copy Revit add-in files to the `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
+To copy Revit add-in files to the default `%AppData%\Autodesk\Revit\Addins` folder after building a project, you can enable the `DeployRevitAddin` property.
 
 Copying files helps attach the debugger to the add-in when Revit starts. This makes it easier to test the application or can be used for local development.
 
@@ -103,6 +103,47 @@ _Default: Disabled_
 Should only be enabled in projects containing the Revit manifest file (`.addin`).
 
 `Clean solution` or `Clean project` commands will delete the deployed files.
+
+#### Local deployment location (ProgramData vs AppData)
+
+By default, local deployment copies the add-in files to `%AppData%\Autodesk\Revit\Addins\$(RevitVersion)`.
+
+If you prefer to deploy to `%ProgramData%\Autodesk\Revit\Addins\$(RevitVersion)`, enable the
+`DeployToProgramData` property alongside `DeployRevitAddin`:
+
+```xml
+<PropertyGroup>
+    <DeployRevitAddin>true</DeployRevitAddin>
+    <DeployToProgramData>true</DeployToProgramData>
+</PropertyGroup>
+```
+
+When `DeployToProgramData` is `false` or not set, the add-in continues to be deployed under `%AppData%`.
+
+_Default: Disabled_
+
+#### Versioned folder for local deployment
+
+By default, local deployment copies the add-in into a folder named after the assembly under
+`%AppData%\Autodesk\Revit\Addins\$(RevitVersion)` (for example, `RevitAddIn`).
+
+If you want the deployment folder name to include the assembly version (for example, `RevitAddIn_1.2.3`),
+enable the `AppendVersion` property. Optionally, you can also define a separator between the name and version
+with `VersionDelimiter`:
+
+```xml
+<PropertyGroup>
+    <DeployRevitAddin>true</DeployRevitAddin>
+    <AppendVersion>true</AppendVersion>
+    <VersionDelimiter>_</VersionDelimiter>
+</PropertyGroup>
+```
+
+When `AppendVersion` is enabled and `AssemblyVersion` is defined, the add-in will be deployed into a
+versioned folder, and the `.addin` manifest will be updated automatically to point to the versioned path.
+If `AppendVersion` is not set (or `AssemblyVersion` is missing), the non-versioned folder name is used as before.
+
+_Default: Disabled_
 
 #### Publishing for distribution
 
