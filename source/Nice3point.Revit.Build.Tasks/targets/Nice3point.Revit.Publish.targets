@@ -9,23 +9,31 @@
     -->
 
     <PropertyGroup>
-        <DeployRevitAddin Condition="'$(DeployRevitAddin)' == ''">false</DeployRevitAddin>
+		<AppDataDeployDir>$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)</AppDataDeployDir>
+
+		<DeployRevitAddin Condition="'$(DeployRevitAddin)' == ''">false</DeployRevitAddin>
         <PublishRevitAddin Condition="'$(DeployRevitAddin)' == 'true'">true</PublishRevitAddin>
         <PublishRevitAddin Condition="'$(PublishRevitAddin)' == ''">false</PublishRevitAddin>
-    </PropertyGroup>
+
+		<AppendVersion Condition="'$(AppendVersion)'!='true' OR '$(AssemblyVersion)'==''">false</AppendVersion>
+		<AddinDeployFolder Condition="'$(AppendVersion)'=='true'">$(AssemblyName)$(VersionDelimiter)$(AssemblyVersion)</AddinDeployFolder>
+		<AddinDeployFolder Condition="'$(AddinDeployFolder)'==''">$(AssemblyName)</AddinDeployFolder>
+		<AddinDeployDir>$(AppDataDeployDir)\$(AddinDeployFolder)</AddinDeployDir>
+		<AddinManifestFileName>$(AssemblyName).addin</AddinManifestFileName>
+	</PropertyGroup>
 
     <Target Name="PublishRevitAddinFiles"
             AfterTargets="CoreBuild"
-            Condition="$(PublishRevitAddin) == 'true' AND $(RevitVersion) != ''">
+            Condition="'$(PublishRevitAddin)' == 'true' AND '$(RevitVersion)' != ''">
 
         <ItemGroup>
-            <RootItem Include="$(ProjectDir)*.addin"/>
+            <RootItem Include="$(ProjectDir)**\*$(AddinManifestFileName)"/>
             <AddinItem Include="$(TargetDir)**\*" Exclude="**\$(PublishDirName)\**\*"/>
             <_ResolvedFileToPublishAlways Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'Always'"/>
             <_ResolvedFileToPublishPreserveNewest Include="@(Content)" PublishDirectory="%(Content.PublishDirectory)" Condition="'%(Content.CopyToPublishDirectory)' == 'PreserveNewest'"/>
         </ItemGroup>
 
-        <PropertyGroup>
+		<PropertyGroup>
             <RootDir>$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\</RootDir>
             <AddinDir>$(RootDir)$(AssemblyName)\</AddinDir>
         </PropertyGroup>
@@ -46,29 +54,46 @@
 
     <Target Name="DeployRevitAddinFiles"
             AfterTargets="PublishRevitAddinFiles"
-            Condition="$(DeployRevitAddin)">
+            Condition="'$(DeployRevitAddin)' == 'true'">
 
-        <ItemGroup>
-            <AddinFiles Include="$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\**\*"/>
-        </ItemGroup>
+		<ItemGroup>
+			<AddinManifest Include="$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\$(AddinManifestFileName)" />
+			<AddinFiles Include="$(PublishDir)\Revit $(RevitVersion) $(Configuration) addin\$(AssemblyName)\**\*" />
+		</ItemGroup>
 
-        <Copy SourceFiles="@(AddinFiles)"
-              DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)"/>
+		<Copy SourceFiles="@(AddinManifest)"
+			  DestinationFolder="$(AppDataDeployDir)" />
 
-        <Message Text="$(AssemblyName) -> $(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\" Importance="high"/>
+		<Copy SourceFiles="@(AddinFiles)"
+			  DestinationFolder="$(AddinDeployDir)\%(RecursiveDir)" />
+
+        <Message Text="$(AssemblyName) -> $(AppDataDeployDir)\" Importance="high"/>
     </Target>
 
-    <Target Name="CleanRevitAddinFolder"
-            AfterTargets="Clean"
-            Condition="$(DeployRevitAddin)">
+	<Target Name="UpdateAddinManifestPath"
+		AfterTargets="DeployRevitAddinFiles"
+		Condition="'$(AppendVersion)' == 'true'">
 
-        <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName)"/>
-        <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(AssemblyName).addin"/>
+		<Exec Command="powershell -NoLogo -NonInteractive -ExecutionPolicy Bypass -Command ^
+				 $path='$(AppDataDeployDir)\$(AddinManifestFileName)'; ^
+				 $xml=[xml](Get-Content $path); ^
+				 $xml.RevitAddIns.AddIn.Assembly='$(AddinDeployFolder)\$(AssemblyName).dll'; ^
+				 $xml.Save($path)" />
+
+		<Message Text="'$(AssemblyName)\$(AssemblyName).dll' -> '$(AddinDeployFolder)\$(AssemblyName).dll'" Importance="high" />
+	</Target>
+
+    <Target Name="CleanRevitAddinDeployFolder"
+            AfterTargets="Clean"
+            Condition="'$(DeployRevitAddin)' == 'true'">
+
+        <RemoveDir Directories="$(AddinDeployDir)"/>
+        <Delete Files="$(AppDataDeployDir)\$(AddinManifestFileName)"/>
     </Target>
 
     <Target Name="CleanPublishFolder"
             AfterTargets="Clean"
-            Condition="$(PublishRevitAddin) == 'true'">
+            Condition="'$(PublishRevitAddin)' == 'true'">
 
         <RemoveDir Directories="$(PublishDir)"/>
     </Target>
