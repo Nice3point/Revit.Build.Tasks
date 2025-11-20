@@ -122,6 +122,14 @@ When `DeployToProgramData` is `false` or not set, the add-in continues to be dep
 
 _Default: Disabled_
 
+#### Add-in manifest location
+
+The build targets locate the Revit add-in manifest file (`.addin`) by searching recursively under the project directory.
+The manifest is resolved by a fixed file name: `$(AssemblyName).addin`.
+
+This means the `.addin` file can live in the project root or any subfolder, as long as there is exactly one file named `$(AssemblyName).addin` in the project tree.
+If multiple files with this name exist, only one of them will effectively be used during publish and deployment (the last one copied).
+
 #### Versioned folder for local deployment
 
 By default, local deployment copies the add-in into a folder named after the assembly under
